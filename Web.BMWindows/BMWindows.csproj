@@ -141,6 +141,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DBContext.BMWindows\DBContext.BMWindows.csproj" />
     <ProjectReference Include="..\Service.BMWindows\Service.BMWindows.csproj" />
+    <ProjectReference Include="..\Service.Utility\Service.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
