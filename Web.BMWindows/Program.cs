@@ -1,6 +1,7 @@
 ﻿using DBContext.BMWindows.Entities;
 using Microsoft.EntityFrameworkCore;
 using Service.BMWindows.Executes.Category;
+using Service.BMWindows.Executes.Base;
 
 var builder = WebApplication.CreateBuilder(args);
 

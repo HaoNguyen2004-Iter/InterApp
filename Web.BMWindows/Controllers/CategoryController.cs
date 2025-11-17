@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.BMWindows.Executes.Category;
+using Service.BMWindows.Executes.Base;
 using Service.Utility.Components;
 using Service.Utility.Variables;
 using System.Text.Json;
@@ -25,5 +26,18 @@ namespace BMWindows.Controllers
             var result = await _categoryService.CategoryMany(model, option);
             return Json(result);
         }
+
+        public async Task<IActionResult> CategoryDetail(int Id)
+        {
+            if (Id < 0)
+                return RedirectToAction("Index");
+
+            var model = await _categoryService.CategoryOne(Id);
+            if (model == null)
+                return RedirectToAction("Index");
+            return View("~/Views/Web/Admin/CategoryDetail.cshtml",model);
+        }
+
+
     }
 }

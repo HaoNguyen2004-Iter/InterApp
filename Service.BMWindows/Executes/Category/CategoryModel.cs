@@ -31,4 +31,9 @@ namespace Service.BMWindows.Executes.Category
         public BaseItem? ObjOrganization { get; set; }
     }
 
+    public class CategoryEditModel : DBContext.BMWindows.Entities.Category
+    {
+
+    }
+
 }

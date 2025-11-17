@@ -14,15 +14,13 @@ $(document).ready(function () {
         toolbars: {
             reload: { ele: panel + ' .main-toolbar .btn-reload' }
         },
-        contextMenu: ['delete'],
-        paging: { options: [10, 20, 30, 50] },
+        contextMenu: ['edit'
+        ],
         loadModalCallback: function () {
-            if (typeof initIdeaForm === 'function') {
-                initIdeaForm(function () {
-                    table.hideModal();
-                    table.loadData();
-                });
-            }
+            initIdeaForm(function () {
+                table.hideModal();
+                table.loadData();
+            });
         },
         loadDataCallback: function () {
             $('.Detail').click(function () {
@@ -30,8 +28,13 @@ $(document).ready(function () {
                 window.location.href = "/Category/CategoryDetail?Id=" + id;
             });
         },
+        initCallback: function () {
+            $(document).on('click', panel + ' .main-toolbar .btn-add', function () {
+                table.createOrUpdateObject(null);
+            });
+        },
         params: { search: { hasCount: true, limit: 20 } },
-        head: { height: 60, groups: [50, 220, 200, 120, 220, 240] },
+        head: { height: 60, groups: [50, 220, 50, 100, 200, 200, 200] },
         skipCols: 0,
         cols: {
             left: [[]],
@@ -66,4 +69,34 @@ $(document).ready(function () {
             { type: 'text', attribute: 'UpdatedDate' }
         ]
     });
+
+    // Xử lý nút Sửa 
+    $(document).on('click', '.btn-edit', function () {
+        var id = $(this).data('id');
+        editCategory(id, function () { }, function () {
+            table.loadData();
+        });
+    });
 });
+
+function editCategory(id, initCallback, editCallback) {
+    var modalTitle = id != null ? 'Cập nhật ý tưởng' : 'Thêm mới ý tưởng';
+    var mid = 'editCategoryModal';
+    app.createPartialModal({
+        url: '/Category/CategoryDetail',
+        data: {
+            id: id
+        },
+        modal: {
+            title: modalTitle,
+            width: '800px',
+            id: mid
+        }
+    }, function () {
+        initCallback();
+        initCategoryForm(function () {
+            $('#' + mid).modal('hide');
+            editCallback();
+        })
+    })
+}

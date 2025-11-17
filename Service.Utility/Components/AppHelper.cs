@@ -903,59 +903,59 @@ namespace Service.Utility.Components
 			return new HtmlString(p);
 		}
 
-		public static HtmlString NavbarTools(string[] tools)
-		{
-			var html = "";
-			foreach (var t in tools)
-			{
-				switch (t)
-				{
-					case "add":
-						{
-							html +=
-								"<li>" +
-								"<button class=\"btn btn-add bg-primary text-white\"" +
-								"data-loading-text=\"<i class='icon-spinner10 fa-spin position-left'></i> Thêm mới \">" +
-								"<i class=\"icon-plus3 position-left\"></i> Thêm mới</button></li>";
-						}
-						break;
-					case "edit":
-						{
-							html +=
-								"<li><button class=\"btn btn-edit btn-default\"" +
-								"data-loading-text=\"<i class='icon-spinner10 fa-spin position-left'></i> Cập nhật\">" +
-								"<i class=\"icon-pencil7 position-left text-warning\"></i> Cập nhật</button></li>";
-						}
-						break;
-					case "delete":
-						{
-							html +=
-								"<li><button class=\"btn btn-delete btn-default\"" +
-								"data-loading-text=\"<i class='icon-spinner10 fa-spin position-left'></i> Xóa\">" +
-								"<i class=\"icon-x position-left text-danger\"></i> Xóa</button></li>";
-						}
-						break;
-					case "reload":
-						{
-							html +=
-								"<li><button class=\"btn btn-reload btn-default\">" +
-								"<i class=\"icon-loop3 position-left text-slate-400 position-left\"></i> Tải lại</button></li>";
-						}
-						break;
-					case "export":
-						{
-							html +=
-								"<li><button class=\"btn btn-export btn-default\">" +
-								"<i class=\"icon-file-excel position-left text-success position-left\"></i> Xuất file</button></li>";
-						}
-						break;
-				}
-			}
+        public static HtmlString NavbarTools(string[] tools)
+        {
+            var html = "";
+            foreach (var t in tools)
+            {
+                switch (t)
+                {
+                    case "add":
+                        {
+                            html +=
+                                "<li>" +
+                                "<button class=\"btn btn-add bg-primary text-white\" " +
+                                "data-loading-text=\"<i class='fa-solid fa-spinner fa-spin'></i> Thêm mới \">" +
+                                "<i class=\"fa-solid fa-plus\"></i> Thêm mới</button></li>";
+                        }
+                        break;
+                    case "edit":
+                        {
+                            html +=
+                                "<li><button class=\"btn btn-edit btn-default\" " +
+                                "data-loading-text=\"<i class='fa-solid fa-spinner fa-spin'></i> Cập nhật\">" +
+                                "<i class=\"fa-solid fa-pen text-warning\"></i> Cập nhật</button></li>";
+                        }
+                        break;
+                    case "delete":
+                        {
+                            html +=
+                                "<li><button class=\"btn btn-delete btn-default\" " +
+                                "data-loading-text=\"<i class='fa-solid fa-spinner fa-spin'></i> Xóa\">" +
+                                "<i class=\"fa-solid fa-trash text-danger\"></i> Xóa</button></li>";
+                        }
+                        break;
+                    case "reload":
+                        {
+                            html +=
+                                "<li><button class=\"btn btn-reload btn-default\" >" +
+                                "<i class=\"fa-solid fa-rotate-right\"></i> Tải lại</button></li>";
+                        }
+                        break;
+                    case "export":
+                        {
+                            html +=
+                                "<li><button class=\"btn btn-export btn-default\" >" +
+                                "<i class=\"fa-solid fa-file-excel text-success\"></i> Xuất file</button></li>";
+                        }
+                        break;
+                }
+            }
 
-			return new HtmlString(html);
-		}
+            return new HtmlString(html);
+        }
 
-		public static HtmlString InputThumbnail(ControlAttribute attr)
+        public static HtmlString InputThumbnail(ControlAttribute attr)
 		{
 			var st = attr.Style.HasValue() ? attr.Style : "";
 

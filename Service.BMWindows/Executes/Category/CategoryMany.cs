@@ -1,17 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Service.BMWindows.Executes.Category;
 using Service.Utility.Components;
 using Service.Utility.Variables;
 
-namespace Service.BMWindows.Executes.Category
+namespace Service.BMWindows.Executes.Base
 {
     public partial class CategoryService
     {
-        private readonly DBContext.BMWindows.Entities.BMWindowDBContext _context;
 
-        public CategoryService(DBContext.BMWindows.Entities.BMWindowDBContext context)
-        {
-            _context = context;
-        }
         public async Task<QueryResult<CategoryViewModel>> CategoryMany(SearchCategoryModel model, OptionResult optionResult)
         {
             return await CategoryData(model, optionResult);
@@ -19,13 +18,14 @@ namespace Service.BMWindows.Executes.Category
 
         private async Task<QueryResult<CategoryViewModel>> CategoryData(SearchCategoryModel model, OptionResult optionResult)
         {
-            var q = _context.Categories
-                .Where(x => x.Status >= 0);
+            if (model == null) model = new SearchCategoryModel();
+
+            IQueryable<DBContext.BMWindows.Entities.Category> q = Context.Categories.Where(x => x.Status >= 0);
 
             if (model.Id > 0)
                 q = q.Where(x => x.Id == model.Id);
 
-            if (model.Keyword.HasValue())
+            if (!string.IsNullOrEmpty(model.Keyword))
             {
                 var k = model.Keyword.OptimizeKeyword();
                 q = q.Where(x =>
@@ -33,7 +33,7 @@ namespace Service.BMWindows.Executes.Category
                     (x.Keyword != null && x.Keyword.Contains(k)));
             }
 
-            if (model.Name.HasValue())
+            if (!string.IsNullOrEmpty(model.Name))
             {
                 var k = model.Name.OptimizeKeyword();
                 q = q.Where(x => x.Name != null && x.Name.Contains(k));
@@ -82,6 +82,7 @@ namespace Service.BMWindows.Executes.Category
                 UpdatedDate = x.UpdatedDate,
                 Prioritize = x.Prioritize
             });
+
             r = r.OrderBy(x => x.Id);
 
             result.Many = await r.Skip(result.Skip).Take(result.Take).ToListAsync();

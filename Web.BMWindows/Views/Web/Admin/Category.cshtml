@@ -14,13 +14,10 @@
 					<h1 class="page-title">Quản lý Nhóm ứng dụng</h1>
 					<p class="page-description">Quản lý các nhóm phân loại ứng dụng</p>
 				</div>
-				<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#category-modal">
-					<i class="fa-solid fa-plus"></i> Tạo nhóm mới
-				</button>
 			</div>
 			<div class="panel-footer main-toolbar" style="background:none">
 				<div class="heading-elements">
-					<ul class="nav navbar-nav">
+					<ul class="nav navbar-nav" style="display: flex; flex-direction"">
 						@AppHelper.NavbarTools(new[] { "add", "reload" })
 					</ul>
 				</div>
