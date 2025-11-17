@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
-using System.Web;
+using Microsoft.AspNetCore.Http;
 using ClosedXML.Excel;
 
 namespace Service.Utility.Components
@@ -84,7 +84,7 @@ namespace Service.Utility.Components
         }
 
 
-        public void Export(string fileName, HttpResponseBase response)
+        public async Task Export(string fileName, HttpResponse response)
         {
             using (XLWorkbook wb = new XLWorkbook())
             {
@@ -93,17 +93,17 @@ namespace Service.Utility.Components
                 if (firstOrDefault != null) firstOrDefault.ShowAutoFilter = false;
                 wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 wb.Style.Font.Bold = true;
+                
                 response.Clear();
-                response.Buffer = true;
-                response.Charset = "";
                 response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                response.AddHeader("content-disposition", "attachment;filename= " + fileName);
+                response.Headers["content-disposition"] = "attachment;filename=" + fileName;
+                
                 using (MemoryStream mm = new MemoryStream())
                 {
                     wb.SaveAs(mm);
-                    mm.WriteTo(response.OutputStream);
-                    response.Flush();
-                    response.End();
+                    mm.Position = 0;
+                    await mm.CopyToAsync(response.Body);
+                    await response.Body.FlushAsync();
                 }
             }
         }

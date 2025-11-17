@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Idea-main\Idea-main\Services\Core\Service.Utility\Service.Utility.csproj" />
+    <ProjectReference Include="..\Service.Utility\Service.Utility.csproj" />
     <ProjectReference Include="..\DBContext.BMWindows\DBContext.BMWindows.csproj" />
   </ItemGroup>
 

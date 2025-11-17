@@ -24,11 +24,11 @@ namespace Service.Utility.Components
 
         private void Save()
         {
-            var exceptionViews = File.ReadAllLines(Context.Path.Combine("/app_data/exceptionViews.txt"));
+            var exceptionViews = File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "app_data/exceptionViews.txt"));
             var m = ConstantVariables.MediaConfigs.FirstOrDefault(x => !x.isFull);
             if (m != null)
             {
-                if(!exceptionViews.Contains(Context.Request.Path.ToLower()))
+                if(!exceptionViews.Contains(Context.Request.Path.Value?.ToLower()))
                 {
                     var path = "/media" + (m.id > 0 ? m.id + "" : "") + "/views_log";
                     path = FileComponent.DateFolder(path, null) + "/" + DateTime.Now.Hour + ".txt";
