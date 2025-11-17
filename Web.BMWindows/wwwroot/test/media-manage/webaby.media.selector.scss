@@ -1,0 +1,182 @@
+﻿.media-selector {
+    &.single {
+        .item {
+            height: 80px;
+
+
+            .cover {
+                display: block;
+
+                img {
+                    max-height: 80px;
+                    max-width: 400px;
+                }
+
+                .btn-group {
+                    display: block;
+
+                    button {
+                        display: inline;
+                        margin-top: 5px;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.multiple {
+        .btn-group {
+            margin-bottom: 5px;
+            position: relative;
+
+            .btn {
+                font-size: 12px;
+
+                i {
+                    font-size: 11px;
+                    margin-right: 5px;
+                }
+
+                &.btn-group {
+                }
+            }
+
+            input {
+                display: none;
+                width: 121px;
+                height: 35px;
+            }
+        }
+
+        ul {
+            padding: 10px 10px 0 10px;
+            margin: 0;
+            background: #eee;
+            overflow: hidden;
+
+            > li {
+
+                &.img {
+                    display: inline-block;
+                    margin-bottom: 10px;
+                    margin-right: 10px;
+                    position: relative;
+                    width: auto;
+                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                    cursor: move;
+                    float: left;
+                    min-width: 90px;
+                    min-height: 97px;
+
+                    .cover {
+                        display: block;
+
+                        img {
+                            max-height: 80px;
+                            max-width: 400px;
+                        }
+                    }
+
+                    .actions {
+                        background: rgba(0, 0, 0, 0.4) none repeat scroll 0 0;
+                        bottom: 0;
+                        left: 0;
+                        overflow: hidden;
+                        padding: 3px;
+                        position: absolute;
+                        right: 0;
+
+                        button {
+                            right: 5px;
+                            float: right;
+
+                            &:last-child {
+                                margin-right: 0;
+                            }
+                        }
+                    }
+
+                    &.ui-sortable-placeholder {
+                        background: #fcd9ba;
+                        height: 97px;
+                        visibility: visible !important;
+                        width: 130px;
+                    }
+                }
+
+                &.ui-state-highlight {
+                    border: 1px solid #fcefa1;
+                    background: #FCFAF2;
+                    box-shadow: none;
+                    width: 130px;
+                    height: 97px;
+                    display: inline-block;
+                }
+
+                &.file {
+                    background: none;
+                    display: inline-block;
+                    margin-bottom: 10px;
+                    margin-right: 10px;
+
+                    .btn-white {
+                        font-family: Arial;
+                        font-weight: bold;
+                        max-width: 150px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#mediaManagerModal {
+    > .modal-dialog {
+        width: 90%;
+        margin-top: 20px;
+        margin-bottom: 0;
+    }
+
+    .modal-body {
+        padding: 0;
+
+        .media-content, .webaby-tree {
+            overflow-y: auto;
+        }
+    }
+
+    .footer {
+        display: block !important;
+        height: 50px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .media-selector {
+        &.multiple {
+            ul {
+                padding: 5px 5px 0 5px !important;
+
+                > li {
+                    &.img {
+
+                    }
+
+                    &.ui-state-highlight {
+                        width: 90px;
+                        height: 68px;
+                        background: #9afae8;
+                        margin-bottom: 5px;
+                        margin-right: 5px;
+                        float: left;
+                    }
+                }
+            }
+        }
+    }
+}

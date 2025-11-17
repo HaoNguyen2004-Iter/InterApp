@@ -1,0 +1,184 @@
+﻿
+.modal-obj-selector {
+    .modal-content {
+        border-radius: 15px;
+    }
+
+    .col-left {
+        padding-right: 0;
+
+        .list-group {
+            &.list-group-left {
+                .list-group-item {
+                    position: relative;
+
+                    &::before {
+                        position: absolute;
+                        content: "";
+                        width: 5px;
+                        background: #fff;
+                        left: 0;
+                        top: 0;
+                        bottom: 0;
+                    }
+
+                    &.active {
+                        background: #f3f3f3;
+                        color: #2196f3;
+
+                        &::before {
+                            background: #2196f3
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .col-right {
+        border-left: 1px solid #dfdfdf;
+
+        input.form-control {
+            border-radius: 16px;
+        }
+
+        .list-group-responsize {
+            height: 350px;
+            overflow: auto;
+
+            .list-group-item {
+                padding: 10px;
+
+                i {
+                    font-size: 17px;
+
+                    &.icon-checkmark-circle {
+                        color: #1e7cc7;
+                    }
+                }
+            }
+        }
+    }
+
+    .col-bottom {
+        border-top: 1px solid #dfdfdf;
+
+        .table {
+            border: none;
+
+            tr {
+                td {
+                    border: none;
+                    padding: 5px;
+
+                    label {
+                        height: 34px;
+                        margin: 0;
+                        line-height: 34px;
+                        float: left;
+                    }
+
+                    .select-result-list {
+                        padding: 0;
+                        margin: 0;
+                        float: left;
+                        width: 100%;
+
+                        li {
+                            position: relative;
+                            display: inline-block;
+                            float: left;
+                            background: #e3f2fd;
+                            border-radius: 20px;
+                            margin-right: 5px;
+                            margin-bottom: 5px;
+
+                            span {
+                                display: block;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                padding: 6px 11px;
+                                padding-right: 45px;
+                                line-height: 1.6666667;
+                                color: #104d92;
+                            }
+
+                            .btn {
+                                position: absolute;
+                                right: 0;
+                                top: 0;
+                                border-radius: 20px;
+                                background: none;
+                                box-shadow: none;
+                                width: 40px;
+                                line-height: 17px;
+
+                                i {
+                                    color: #104d92;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .tree-container {
+        .org-tree {
+            .org-item {
+                display: table;
+                padding: 1px 10px;
+
+                > i {
+                    display: table-cell;
+                }
+
+                > span {
+                    padding: 3px 10px;
+                    border-radius: 8px;
+                    display: table-cell;
+                }
+
+                .org-txt {
+                }
+            }
+        }
+    }
+
+    .search-group{
+        overflow: auto;
+        height: 350px;
+    }
+    
+    .media-emp {
+        display: table;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+
+        .media-left {
+            width: 90px;
+            padding-right: 15px;
+
+            i {
+                float: left;
+                margin-right: 15px;
+                margin-top: 12px;
+            }
+
+            img {
+                float: left;
+            }
+        }
+
+        .media-body {
+            width: unset;
+        }
+
+        &:hover {
+            background: #f3f3f3;
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,36 @@
+﻿@using Service.Utility.Components
+@{
+	ViewBag.Title = "Danh sách ứng dụng";
+	Layout = "~/Views/Web/layouts/Default.cshtml";
+}
+
+<!-- Content Container -->
+<div class="content-wrapper">
+	<!-- Category Management Section -->
+	<section id="category-management" class="content-section">
+		<div id="CategoryList_panel">
+			<div class="page-header">
+				<div>
+					<h1 class="page-title">Quản lý Nhóm ứng dụng</h1>
+					<p class="page-description">Quản lý các nhóm phân loại ứng dụng</p>
+				</div>
+				<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#category-modal">
+					<i class="fa-solid fa-plus"></i> Tạo nhóm mới
+				</button>
+			</div>
+			<div class="panel-footer main-toolbar" style="background:none">
+				<div class="heading-elements">
+					<ul class="nav navbar-nav">
+						@AppHelper.NavbarTools(new[] { "add", "reload" })
+					</ul>
+				</div>
+			</div>
+			<div class="apply-table mt-15">
+			</div>
+		</div>
+	</section>
+</div>
+
+@section Scripts {
+	<script src="~/js/Web/Admin/CategoryList.js"></script>
+}

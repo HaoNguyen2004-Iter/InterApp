@@ -1,0 +1,205 @@
+﻿.compo-select3 {
+  width: 100%;
+}
+.compo-select3 .btn-group {
+  width: 100%;
+  position: relative;
+}
+.compo-select3 .btn-group > .btn-fil {
+  text-align: left;
+  width: 100%;
+  position: relative;
+  background: #fff;
+  min-height: 32px;
+  transition: unset;
+}
+.compo-select3 .btn-group > .btn-fil:disabled {
+  content: "disabled";
+  background: #dfdfdf;
+  color: grey;
+}
+.compo-select3 .btn-group > .btn-fil span {
+  width: 95%;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-height: 20px !important;
+}
+.compo-select3 .btn-group > .btn-fil i {
+  position: absolute;
+  right: 5px;
+  top: 6px;
+}
+.compo-select3 .btn-group > .btn-fil i.icon-calendar2 {
+  top: 7px;
+}
+.compo-select3 .btn-group > .btn-fil i.caret {
+  right: 10px;
+  top: 8px;
+}
+.compo-select3 .btn-group .btn-delete {
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  float: right;
+  display: none;
+}
+.compo-select3 .btn-group.has-value .btn-fil {
+  width: calc(100% - 32px);
+}
+.compo-select3 .btn-group.has-value .btn-delete {
+  display: block;
+}
+
+.form-group-sm .compo-select3 .btn-group > .btn-fil {
+  padding: 5px 12px;
+}
+.form-group-sm .compo-select3 .btn-group > .btn-fil i {
+  top: 8px;
+}
+.form-group-sm .compo-select3 .btn-group .btn-icon {
+  padding: 0;
+}
+
+.compo-select3-mask {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-height: 100%;
+  min-width: 100%;
+  height: auto;
+  width: auto;
+  opacity: 0;
+  z-index: 1048;
+  background-color: #fff;
+  filter: alpha(opacity=0);
+}
+
+.compo-select3-drop {
+  width: 400px;
+  margin-top: -1px;
+  position: absolute;
+  z-index: 1050;
+  padding: 5px;
+  top: 100%;
+  background: #fff;
+  color: #000;
+  border: 1px solid #5897fb;
+  border-radius: 0 0 4px 4px;
+  -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+}
+.compo-select3-drop .input-group {
+  position: relative;
+  width: 100%;
+}
+.compo-select3-drop .input-group .icon-spinner10 {
+  position: absolute;
+  right: 10px;
+  z-index: 5;
+  top: 7px;
+}
+.compo-select3-drop .input-group.has-view-more .icon-spinner10 {
+  right: 115px;
+}
+.compo-select3-drop .compo-items {
+  max-height: 250px;
+  overflow: auto;
+}
+.compo-select3-drop .compo-items table {
+  margin-top: 10px;
+}
+.compo-select3-drop .compo-items table tr {
+  cursor: pointer;
+  background: #fff !important;
+}
+.compo-select3-drop .compo-items table tr td {
+  padding: 3px 5px;
+}
+.compo-select3-drop .compo-items table tr td.chb {
+  width: 30px;
+  text-align: center;
+}
+.compo-select3-drop .compo-items table tr:hover {
+  background: #efefef !important;
+}
+.compo-select3-drop .compo-items table tr.tr-empty td {
+  font-style: italic;
+}
+.compo-select3-drop .compo-items ul {
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+.compo-select3-drop .compo-items ul li {
+  padding: 4px;
+  border-bottom: 1px solid #efefef;
+  font-size: 12px;
+  cursor: pointer;
+}
+.compo-select3-drop .compo-items ul li input {
+  float: left;
+  margin: 3px 7px 0 0;
+}
+.compo-select3-drop .compo-items ul li span {
+  float: left;
+}
+.compo-select3-drop .compo-items ul li i {
+  font-size: 12px;
+}
+.compo-select3-drop .compo-items ul li:hover {
+  background: #2196f3;
+  color: #fff;
+}
+.compo-select3-drop .table-container {
+  max-height: 250px;
+  overflow: auto;
+}
+.compo-select3-drop .table-container .compo-items {
+  max-height: unset;
+  overflow: unset;
+}
+.compo-select3-drop .table-container .compo-items-check table {
+  margin-top: 10px;
+}
+.compo-select3-drop .table-container .compo-items-check table tr {
+  cursor: pointer;
+  background: #fff !important;
+}
+.compo-select3-drop .table-container .compo-items-check table tr td {
+  padding: 3px 5px;
+}
+.compo-select3-drop .table-container .compo-items-check table tr td.chb {
+  width: 30px;
+  text-align: center;
+}
+.compo-select3-drop .table-container .compo-items-check table tr:hover {
+  background: #efefef !important;
+}
+.compo-select3-drop .table-container .compo-items-check ul {
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+.compo-select3-drop .table-container .compo-items-check ul li {
+  padding: 4px;
+  border-bottom: 1px solid #efefef;
+  font-size: 12px;
+  cursor: pointer;
+}
+.compo-select3-drop .table-container .compo-items-check ul li input {
+  float: left;
+  margin: 3px 7px 0 0;
+}
+.compo-select3-drop .table-container .compo-items-check ul li span {
+  float: left;
+}
+.compo-select3-drop .table-container .compo-items-check ul li i {
+  font-size: 12px;
+}
+.compo-select3-drop .table-container .compo-items-check ul li:hover {
+  background: #2196f3;
+  color: #fff;
+}

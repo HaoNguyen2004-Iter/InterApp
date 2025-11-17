@@ -1,0 +1,112 @@
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace DBContext.BMWindows.Entities
+{
+    public class BMWindowDBContext : DbContext
+    {
+        public BMWindowDBContext(DbContextOptions<BMWindowDBContext> options)
+            : base(options) { }
+
+        public DbSet<Category> Categories => Set<Category>();
+        public DbSet<AppItem> AppItems => Set<AppItem>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.ToTable("Categories");
+
+                entity.HasKey(e => e.Id).HasName("PK_Categories");
+
+                entity.Property(e => e.Name)
+                      .IsRequired()
+                      .HasMaxLength(200);
+                entity.HasIndex(x => x.Prioritize).IsUnique(false);
+
+                entity.Property(e => e.Status)
+                      .IsRequired()
+                      .HasDefaultValue(1);
+
+                entity.Property(e => e.Keyword)
+                      .HasMaxLength(400)
+                      .HasDefaultValue(string.Empty);
+
+                entity.Property(e => e.CreatedBy)
+                      .IsRequired();
+
+                entity.Property(e => e.CreatedDate)
+                      .HasColumnType("datetime")
+                      .HasDefaultValueSql("SYSDATETIME()");
+
+                entity.Property(e => e.UpdatedBy);
+
+                entity.Property(e => e.UpdatedDate)
+                      .HasColumnType("datetime");
+
+                entity.HasIndex(e => e.Status).HasDatabaseName("IX_Categories_Status");
+                entity.HasIndex(e => e.Keyword).HasDatabaseName("IX_Categories_Keyword");
+            });
+
+            // ===== AppItems =====
+            modelBuilder.Entity<AppItem>(entity =>
+            {
+                entity.ToTable("AppItems");
+
+                entity.HasKey(e => e.Id).HasName("PK_AppItems");
+
+                entity.Property(e => e.CategoryId)
+                      .IsRequired();
+
+                entity.Property(e => e.Name)
+                      .IsRequired()
+                      .HasMaxLength(200);
+
+                entity.Property(e => e.Icon)
+                      .HasMaxLength(200);
+
+                entity.Property(e => e.Size)
+                      .HasMaxLength(50);
+
+                entity.Property(e => e.Url)
+                      .HasMaxLength(500);
+
+                entity.Property(e => e.Prioritize)
+                      .IsRequired();
+
+                entity.Property(e => e.Status)
+                      .IsRequired()
+                      .HasDefaultValue(1);
+
+                entity.Property(e => e.Keyword)
+                      .HasMaxLength(400)
+                      .HasDefaultValue(string.Empty);
+
+                entity.Property(e => e.CreatedBy)
+                      .IsRequired();
+
+                entity.Property(e => e.CreatedDate)
+                      .HasColumnType("datetime")
+                      .HasDefaultValueSql("SYSDATETIME()");
+
+                entity.Property(e => e.UpdatedBy)
+                      .IsRequired();
+
+                entity.Property(e => e.UpdatedDate)
+                      .HasColumnType("datetime")
+                      .HasDefaultValueSql("SYSDATETIME()");
+
+                entity.HasIndex(e => e.CategoryId).HasDatabaseName("IX_AppItems_CategoryId");
+                entity.HasIndex(e => e.Status).HasDatabaseName("IX_AppItems_Status");
+                entity.HasIndex(e => e.Keyword).HasDatabaseName("IX_AppItems_Keyword");
+                entity.HasIndex(e => e.Prioritize)
+                      .IsUnique()
+                      .HasDatabaseName("UX_AppItems_Prioritize");
+
+                entity.HasOne<Category>()
+                      .WithMany()
+                      .HasForeignKey(e => e.CategoryId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+        }
+    }
+}
