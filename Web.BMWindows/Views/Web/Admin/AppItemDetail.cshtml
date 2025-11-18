@@ -46,15 +46,26 @@
            maxlength="500" />
 </div>
 
-<div class="form-group">
-    <label class="control-label">Icon</label>
-    <input type="text" 
-           name="Icon" 
-           value="@Model.Icon" 
-           class="form-control" 
-           placeholder="fa-solid fa-cube" 
-           maxlength="100" />
-</div>
+    <div class="form-group">
+        <label class="control-label">Icon</label>
+
+        <div class="d-flex align-items-start mb-2">
+            <div style="width:120px; height:80px; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#fff; margin-right:10px;">
+                <img id="iconPreview" src="@(string.IsNullOrEmpty(Model.Icon) ? Url.Content("~/images/icons/settings.png") : Model.Icon)" alt="Icon preview" style="max-width:100%; max-height:100%;" />
+            </div>
+            <div style="flex:1">
+                <input type="hidden" name="Icon" id="Icon" value="@Model.Icon" />
+                <div class="mb-2">
+                    <input type="file" id="IconFile" accept="image/*" class="form-control-file" />
+                </div>
+                <div id="iconUploadStatus" style="font-size:12px;color:#666;display:none;">Đang tải lên...</div>
+                <div style="font-size:12px;color:#666; margin-top:8px;">Hoặc nhập đường dẫn ảnh trực tiếp:</div>
+                <input type="text" name="IconManual" id="IconManual" value="@Model.Icon" class="form-control mt-1" placeholder="/media/..." />
+                <button type="button" id="btnApplyManualIcon" class="btn btn-sm btn-light mt-2">Áp dụng đường dẫn</button>
+            </div>
+        </div>
+
+    </div>
 
 <div class="form-group">
     <label class="control-label">Từ khóa</label>
@@ -102,3 +113,5 @@
 </div>
 
 </form>
+
+<script src="~/js/web/admin/appitem.icon.upload.js"></script>

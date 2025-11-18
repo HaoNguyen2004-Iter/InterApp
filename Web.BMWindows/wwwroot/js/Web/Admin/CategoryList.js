@@ -63,12 +63,7 @@ $(document).ready(function () {
                 });
             });
         },
-        loadDataCallback: function () {
-            $('.Detail').click(function () {
-                var id = $(this).attr('id');
-                window.location.href = "/Category/CategoryDetail?Id=" + id;
-            });
-        },
+
         params: { search: { hasCount: true, limit: 20 } },
         head: { height: 60, groups: [50, 220, 50, 110, 200, 200, 200, 200] },
         skipCols: 0,
@@ -97,11 +92,11 @@ $(document).ready(function () {
                     return '';
                 }
             },
-            { type: 'text', attribute: 'Prioritize' },
+            { type: 'text', attribute: 'Prioritize', style: 'text-align: center', },
             { 
                 type: 'text', 
                 attribute: 'Status',
-                class: 'text-center',
+                
                 render: function (row) {
                    
                     var status = row.Status;

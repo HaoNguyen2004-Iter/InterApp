@@ -58,14 +58,8 @@ $(document).ready(function () {
                 });
             });
         },
-        loadDataCallback: function () {
-            $('.Detail').click(function () {
-                var id = $(this).attr('id');
-                window.location.href = "/AppItem/AppItemEdit?id=" + id;
-            });
-        },
         params: { search: { hasCount: true, limit: 20 } },
-        head: { height: 60, groups: [50, 250, 150, 200, 80, 120, 110, 200, 200, 200, 200] },
+        head: { height: 60, groups: [50, 250, 150, 200, 80, 50, 110, 200, 200, 200, 200] },
         skipCols: 0,
         cols: {
             left: [[]],
@@ -130,13 +124,26 @@ $(document).ready(function () {
             {
                 type: 'text', attribute: 'Icon',
                 render: function (row) {
-                    if (row.Icon) {
-                        return '<i class="' + row.Icon + '"></i> ' + row.Icon;
+                    var icon = row.Icon;
+                    if (!icon) return '';
+
+                    // detect FontAwesome / class icon
+                    var isFa = (icon.indexOf('fa-') >= 0) || (icon.indexOf('fas') === 0) || (icon.indexOf('fab') === 0) || (icon.indexOf('fal') === 0) || (icon.indexOf('far') === 0);
+
+                    // detect URL / data URI / absolute path
+                    var isUrl = (typeof icon === 'string') && (icon.indexOf('data:') === 0 || icon.indexOf('/') === 0 || icon.indexOf('http') === 0);
+
+                    if (isFa) {
+                        return '<i class="' + icon + '" style="font-size:18px;margin-right:6px;"></i> ' + icon;
+                    } else if (isUrl) {
+                        return '<img src="' + icon + '" style="height:28px;max-width:120px;object-fit:contain;border:1px solid #eee;padding:2px;" />';
+                    } else {
+                        // fallback: plain text or class
+                        return '<span>' + icon + '</span>';
                     }
-                    return '';
                 }
             },
-            { type: 'text', attribute: 'Prioritize' },
+            { type: 'text', attribute: 'Prioritize', style: 'text-align: center' },
             {
                 type: 'text',
                 attribute: 'Status',
