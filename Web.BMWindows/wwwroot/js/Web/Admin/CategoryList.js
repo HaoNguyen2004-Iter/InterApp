@@ -8,7 +8,7 @@ $(document).ready(function () {
         editController: '/Category',
         width: {},
         filterable: true,
-        height: { top: 150 },
+        height: { top: 250 },
         modal: { type: 1, width: '800px', title: 'Nhóm ứng dụng' },
         toolbars: {
             reload: { ele: panel + ' .main-toolbar .btn-reload' }

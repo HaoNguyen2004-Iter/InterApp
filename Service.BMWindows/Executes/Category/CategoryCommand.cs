@@ -22,7 +22,6 @@ namespace Service.BMWindows.Executes.Base
                     return new CommandResult<DBContext.BMWindows.Entities.Category>("Tên nhóm không trống");
                 }
 
-
                 // Tạo Category mới
                 var d = new DBContext.BMWindows.Entities.Category
                 {
@@ -34,6 +33,8 @@ namespace Service.BMWindows.Executes.Base
                     UpdatedBy = null,
                     UpdatedDate = null,
                 };
+                d.Keyword = BuildKeyword(d);
+
 
                 Context.Categories.Add(d);
                 await Context.SaveChangesAsync();
@@ -69,6 +70,7 @@ namespace Service.BMWindows.Executes.Base
                 d.Prioritize = model.Prioritize;
                 d.Status = model.Status;
                 d.UpdatedDate = DateTime.UtcNow;
+                d.Keyword = BuildKeyword(d);
 
                 await Context.SaveChangesAsync();
 
@@ -79,6 +81,12 @@ namespace Service.BMWindows.Executes.Base
                 var innerMsg = ex.InnerException != null ? " | Inner: " + ex.InnerException.Message : "";
                 return new CommandResult<DBContext.BMWindows.Entities.Category>("Lỗi: " + ex.Message + innerMsg);
             }
+        }
+
+
+        private string BuildKeyword(DBContext.BMWindows.Entities.Category model)
+        {
+            return (model.Name?.ToKeyword() ?? "");
         }
     }
 }
