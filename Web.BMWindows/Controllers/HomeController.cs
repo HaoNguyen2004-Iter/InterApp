@@ -23,7 +23,7 @@ namespace Web.BMWindows.Controllers
 
         [HttpGet]
         [Route("User/Index")]
-        public async Task<IActionResult> UserIndex(int? categoryId = null)
+        public async Task<IActionResult> UserIndex(int categoryId)
         {
             // Load all active Categories (Status = 1)
             var categorySearchModel = new SearchCategoryModel
@@ -60,13 +60,12 @@ namespace Web.BMWindows.Controllers
 
         [HttpGet]
         [Route("User/LoadAppItems")]
-        public async Task<IActionResult> LoadAppItems(int? categoryId = null)
+        public async Task<IActionResult> LoadAppItems(int categoryId)
         {
-            // Load all active AppItems (Status = 1)
             var appItemSearchModel = new SearchAppItemModel
             {
                 Status = 1, // Only active items
-                CategoryId = categoryId // Filter by category if provided
+                CategoryId = categoryId 
             };
 
             var appItemOption = new OptionResult
