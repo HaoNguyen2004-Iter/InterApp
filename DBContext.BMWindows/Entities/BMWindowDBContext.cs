@@ -64,9 +64,6 @@ namespace DBContext.BMWindows.Entities
                 entity.Property(e => e.Icon)
                       .HasMaxLength(200);
 
-                entity.Property(e => e.Size)
-                      .HasMaxLength(50);
-
                 entity.Property(e => e.Url)
                       .HasMaxLength(500);
 

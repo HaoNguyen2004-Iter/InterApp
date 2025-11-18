@@ -18,7 +18,6 @@ namespace Service.BMWindows.Executes.Base
                     CategoryName = Context.Categories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault() ?? "",
                     Name = x.Name,
                     Icon = x.Icon,
-                    Size = x.Size,
                     Url = x.Url,
                     Status = x.Status,
                     Keyword = x.Keyword,

@@ -70,7 +70,7 @@ $(document).ready(function () {
             });
         },
         params: { search: { hasCount: true, limit: 20 } },
-        head: { height: 60, groups: [50, 220, 50, 100, 200, 200, 200, 200] },
+        head: { height: 60, groups: [50, 220, 50, 110, 200, 200, 200, 200] },
         skipCols: 0,
         cols: {
             left: [[]],
@@ -101,6 +101,7 @@ $(document).ready(function () {
             { 
                 type: 'text', 
                 attribute: 'Status',
+                class: 'text-center',
                 render: function (row) {
                    
                     var status = row.Status;
@@ -118,6 +119,15 @@ $(document).ready(function () {
                     }
                     
                     return html;
+                },
+                filter: {
+                    type: 'option',
+                    lst: function () {
+                        return [
+                            { id: '1', text: 'Hoạt động' },
+                            { id: '2', text: 'Dừng' }
+                        ];
+                    }
                 }
             },
             { type: 'text', attribute: 'CreatedBy' },

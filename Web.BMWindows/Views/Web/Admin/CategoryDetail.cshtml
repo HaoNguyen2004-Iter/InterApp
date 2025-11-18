@@ -1,8 +1,4 @@
-﻿@*
-    CategoryDetail.cshtml
-    View để hiển thị form thêm/sửa Category
-    Được load vào modal thông qua advanceGrid hoặc app.createPartialModal
-*@
+﻿
 
 @model Service.BMWindows.Executes.Category.CategoryViewModel
 
@@ -21,7 +17,6 @@
            placeholder="Nhập tên nhóm ứng dụng" 
            maxlength="200" 
            data-validation="required" />
-    <small class="form-text text-muted">Tên nhóm ứng dụng (bắt buộc, tối đa 200 ký tự)</small>
 </div>
 
 <div class="form-group">
@@ -33,7 +28,6 @@
            placeholder="Nhập số thứ tự ưu tiên"
            min="0"
            step="1" />
-    <small class="form-text text-muted">Số thứ tự để sắp xếp hiển thị (số càng nhỏ càng ưu tiên)</small>
 </div>
 
 <div class="form-group">
@@ -59,7 +53,6 @@
         
        
     </select>
-    <small class="form-text text-muted">Chọn trạng thái cho nhóm ứng dụng</small>
 </div>
 
 </form>

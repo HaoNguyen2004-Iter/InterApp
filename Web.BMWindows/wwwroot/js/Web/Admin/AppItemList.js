@@ -65,7 +65,7 @@ $(document).ready(function () {
             });
         },
         params: { search: { hasCount: true, limit: 20 } },
-        head: { height: 60, groups: [50, 250, 150, 200, 80, 120, 100, 200, 200, 200, 200] },
+        head: { height: 60, groups: [50, 250, 150, 200, 80, 120, 110, 200, 200, 200, 200] },
         skipCols: 0,
         cols: {
             left: [[]],
@@ -96,8 +96,25 @@ $(document).ready(function () {
                 }
             },
             {
-                type: 'text', attribute: 'CategoryName',
-                filter: { type: 'contains', attr: 'categoryId' }
+                type: 'text', attribute: 'CategoryId',
+                class: 'text-center',
+                render: function (row) {
+                    return row.CategoryName;
+                },
+                filter: {
+                    type: 'option',
+                    ajax: {
+                        url: '/Category/CategoryList',
+                        data: { hasCount: false, limit: 100 }, 
+                        dataType: 'json',
+                        attr: { id: 'Id', text: 'Name' },
+                        success: function (response) {
+                            var list = response && response.Many ? response.Many : response;
+                            console.log('Category response:', list);
+                            return list;
+                        }
+                    }
+                }
             },
             {
                 type: 'text', attribute: 'Url',
@@ -123,34 +140,29 @@ $(document).ready(function () {
             {
                 type: 'text',
                 attribute: 'Status',
+                class: 'text-center',
                 render: function (row) {
                     var status = row.Status;
                     var html = '';
-
                     switch (status) {
                         case 0:
-                            html = '<span class="badge badge-warning">Chờ duyệt</span>';
+                            html = '<span class="badge badge-warning">Dừng</span>';
                             break;
                         case 1:
-                            html = '<span class="badge badge-success">Kích hoạt</span>';
+                            html = '<span class="badge badge-success">Hoạt động</span>';
                             break;
-                        case 2:
-                            html = '<span class="badge badge-danger">Lỗi</span>';
-                            break;
-                        case 3:
-                            html = '<span class="badge badge-info">Không xác định</span>';
-                            break;
-                        case 4:
-                            html = '<span class="badge" style="background-color: #9c27b0; color: white;">Vô hiệu hóa</span>';
-                            break;
-                        case 5:
-                            html = '<span class="badge" style="background-color: #ff6f00; color: white;">Hết hạn</span>';
-                            break;
-                        default:
-                            html = '<span class="badge badge-secondary">' + status + '</span>';
                     }
 
                     return html;
+                },
+                filter: {
+                    type: 'option',
+                    lst: function () {
+                        return [
+                            { id: '1', text: 'Hoạt động' },
+                            { id: '0', text: 'Dừng' }
+                        ];
+                    }
                 }
             },
             { type: 'text', attribute: 'CreatedBy' },

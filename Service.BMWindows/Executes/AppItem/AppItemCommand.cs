@@ -36,7 +36,6 @@ namespace Service.BMWindows.Executes.Base
                     CategoryId = model.CategoryId,
                     Name = model.Name.Trim(),
                     Icon = model.Icon,
-                    Size = model.Size,
                     Url = model.Url,
                     Status = model.Status,
                     Keyword = model.Keyword,
@@ -82,7 +81,6 @@ namespace Service.BMWindows.Executes.Base
                 item.CategoryId = model.CategoryId;
                 item.Name = model.Name.Trim();
                 item.Icon = model.Icon;
-                item.Size = model.Size;
                 item.Url = model.Url;
                 item.Status = model.Status;
                 item.Keyword = model.Keyword;
