@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Executes\General\**" />
+    <EmbeddedResource Remove="Executes\General\**" />
+    <None Remove="Executes\General\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Service.Utility\Service.Utility.csproj" />
     <ProjectReference Include="..\DBContext.BMWindows\DBContext.BMWindows.csproj" />
   </ItemGroup>

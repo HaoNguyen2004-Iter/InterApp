@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="~/images/logo/logo.png" rel="shortcut icon" />
+    <title>BMWindow</title>
+        <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/css/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+        <link href="~/css/style.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+   <!-- Nav Bar -->
+     <section id="header">
+    @await Html.PartialAsync("Navbar")
+     </section>
+   
+
+    <!-- main content -->
+    <main id="main-dashboard" class="container my-5 pt-4">
+      @RenderBody()
+    </main>
+
+
+    <section id="scripts">
+        <script src="~/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/jquery.min.js"></script>
+        <script src="~/js/web/user/user.js"></script>
+
+    </section>
+    
+    </div>
+ 
+
+</body>
+</html>

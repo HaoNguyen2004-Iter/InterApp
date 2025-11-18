@@ -1,0 +1,89 @@
+﻿@* navbar *@
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid px-4 md-px-5">
+        <a class="navbar-brand d-flex align-items-center" href="/User/Index">
+            <span class="logo-icon">
+                <img src="~/images/logo/logo.png" alt="BM WINDOWS" width="52.21" height="52.21">
+            </span>
+            <div class="d-flex flex-column logo-text">
+                <span class="fw-bold text-dark">
+                    <img src="~/images/logo/logo-text.png" width="143.86" height="48.88">
+                </span>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-3">
+                @{
+                    var selectedCategoryId = ViewBag.SelectedCategoryId as int?;
+                }
+                <li class="nav-item">
+                    <a class="nav-link category-filter @(selectedCategoryId == null ? "active" : "")" 
+                       href="#" 
+                       data-category-id="">Tất cả</a>
+                </li>
+                @if (ViewBag.Categories != null)
+                {
+                    foreach (var category in ViewBag.Categories as IEnumerable<Service.BMWindows.Executes.Category.CategoryViewModel>)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link category-filter @(selectedCategoryId == category.Id ? "active" : "")" 
+                               href="#"
+                               data-category-id="@category.Id">@category.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+
+            <div class="d-flex align-items-center gap-4">
+                <div class="search-icon-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <div style="position: relative;">
+                    <div id="userDropdownTrigger" class="user-dropdown-trigger">
+                        <div class="user-avatar-wrapper">
+                            <div class="user-avatar" style="background-image:url('@Url.Content("~/images/avatar/avatar.jpg")');"></div>
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name">ADMIN</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+                    </div>
+
+                    <div id="userDropdownMenu" class="user-dropdown-menu">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar" style="background-image: url('@Url.Content("~/images/avatar/avatar.jpg")');"></div>
+                            <div class="dropdown-user-info">
+                                <h6 class="mb-0">ADMIN</h6>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="dropdown-list">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa-regular fa-user"></i>
+                                    <span>Hồ sơ cá nhân</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="dropdown-divider"></div>
+                        <ul class="dropdown-list">
+                            <li>
+                                <a class="dropdown-item logout-item" href="#">
+                                    <i class="fa-regular fa-arrow-right-from-bracket"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
