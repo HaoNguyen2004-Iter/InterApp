@@ -143,6 +143,14 @@ h1, h2, h3, h4, h5, h6 {
 .sidebar .submenu {
   margin-left: 32px;
   margin-top: 4px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+.sidebar .submenu.show {
+  max-height: 500px; /* Đủ cao cho menu items */
+  opacity: 1;
 }
 .sidebar .submenu .nav-link {
   font-size: 13px;

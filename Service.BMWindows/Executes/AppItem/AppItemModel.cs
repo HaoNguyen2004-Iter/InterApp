@@ -1,35 +1,52 @@
-ï»¿using DBContext.BMWindows.Entities;
-using Service.Utility.Components;
 using Service.Utility.Variables;
 using System;
 
 namespace Service.BMWindows.Executes.AppItem
 {
+    /// <summary>
+    /// Model ð? search AppItem
+    /// </summary>
     public class SearchAppItemModel
     {
+        public string? Keyword { get; set; }
+        public int? CategoryId { get; set; }
+        public int? Status { get; set; }
+    }
+
+    /// <summary>
+    /// ViewModel ð? hi?n th? thông tin AppItem
+    /// </summary>
+    public class AppItemViewModel
+    {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string? Icon { get; set; }
+        public string? Size { get; set; }
+        public string? Url { get; set; }
         public int Status { get; set; }
         public string? Keyword { get; set; }
-        public int CategoryId { get; set; }
         public int Prioritize { get; set; }
-        public Guid CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
-        public Guid? UpdatedBy { get; set; }
+        public string CreatedBy { get; set; } = "";
         public DateTime? UpdatedDate { get; set; }
-
-        public DateTime? CreatedDateFrom { get; set; }
-        public DateTime? CreatedDateTo { get; set; }
-        public DateTime? UpdatedDateFrom { get; set; }
-        public DateTime? UpdatedDateTo { get; set; }
+        public string? UpdatedBy { get; set; }
     }
 
-    public class AppItemViewModel : DBContext.BMWindows.Entities.AppItem
+    /// <summary>
+    /// Model ð? thêm/s?a AppItem
+    /// </summary>
+    public class AppItemEditModel
     {
-        public BaseItem? ObjCategory { get; set; }
-    }
-
-    public class AppItemEditModel : DBContext.BMWindows.Entities.AppItem
-    {
+        public int Id { get; set; }
+        public int CategoryId { get; set; }
+        public string Name { get; set; } = "";
+        public string? Icon { get; set; }
+        public string? Size { get; set; }
+        public string? Url { get; set; }
+        public int Status { get; set; } = (int)ObjectStatus.Active;
+        public string? Keyword { get; set; }
+        public int Prioritize { get; set; }
     }
 }

@@ -1,37 +1,34 @@
-﻿using System.Threading.Tasks;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Service.BMWindows.Executes.AppItem;
-using Service.Utility.Components;
-using Service.Utility.Variables;
 
 namespace Service.BMWindows.Executes.Base
 {
-    public partial class CategoryService
+    public partial class AppItemService
     {
-        public async Task<AppItemViewModel> AppItemOne(int Id)
+        public async Task<AppItemViewModel?> AppItemOne(int id)
         {
-            var appEntity = await Context.AppItems.Where(x => x.Id == Id && x.Status >= 0).FirstOrDefaultAsync();
-
-            AppItemViewModel item = null;
-
-            item = new AppItemViewModel
-            {
-                Id = appEntity.Id,
-                CategoryId = appEntity.CategoryId,
-                Name = appEntity.Name,
-                Icon = appEntity.Icon,
-                Size = appEntity.Size,
-                Url = appEntity.Url,
-                Status = appEntity.Status,
-                Keyword = appEntity.Keyword,
-                Prioritize = appEntity.Prioritize,
-                CreatedBy = appEntity.CreatedBy,
-                CreatedDate = appEntity.CreatedDate,
-                UpdatedBy = appEntity.UpdatedBy,
-                UpdatedDate = appEntity.UpdatedDate,
-                ObjCategory = await Context.Categories.Where(c => c.Id == appEntity.CategoryId)
-                                .Select(c => new BaseItem { Id = c.Id, Name = c.Name }).FirstOrDefaultAsync()
-            };
+            var item = await Context.AppItems
+                .Where(x => x.Id == id)
+                .Select(x => new AppItemViewModel
+                {
+                    Id = x.Id,
+                    CategoryId = x.CategoryId,
+                    CategoryName = Context.Categories.Where(c => c.Id == x.CategoryId).Select(c => c.Name).FirstOrDefault() ?? "",
+                    Name = x.Name,
+                    Icon = x.Icon,
+                    Size = x.Size,
+                    Url = x.Url,
+                    Status = x.Status,
+                    Keyword = x.Keyword,
+                    Prioritize = x.Prioritize,
+                    CreatedDate = x.CreatedDate,
+                    CreatedBy = "Administrator",
+                    UpdatedDate = x.UpdatedDate,
+                    UpdatedBy = "Administrator"
+                })
+                .FirstOrDefaultAsync();
 
             return item;
         }

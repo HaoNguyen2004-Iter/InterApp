@@ -1,0 +1,157 @@
+﻿@model Service.BMWindows.Executes.AppItem.AppItemViewModel
+
+<form novalidate>
+    
+<input type="hidden" name="Id" value="@Model.Id" />
+
+<div class="form-group">
+    <label class="control-label">Tên ứng dụng <span class="text-danger">*</span></label>
+    <input type="text" 
+           name="Name" 
+           value="@Model.Name" 
+           class="form-control" 
+           placeholder="Nhập tên ứng dụng" 
+           maxlength="200" 
+           data-validation="required" />
+    <small class="form-text text-muted">Tên ứng dụng (bắt bu?c, tối đa 200 kí tự)</small>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Nhóm ứng dụng <span class="text-danger">*</span></label>
+    <select name="CategoryId" class="form-control" data-validation="required">
+        <option value="">-- Chọn nhóm --</option>
+        @if (ViewBag.Categories != null)
+        {
+            @foreach (var cat in ViewBag.Categories as IEnumerable<Service.BMWindows.Executes.Category.CategoryViewModel>)
+            {
+                @if (Model.CategoryId == cat.Id)
+                {
+                    <option value="@cat.Id" selected="selected">@cat.Name</option>
+                }
+                else
+                {
+                    <option value="@cat.Id">@cat.Name</option>
+                }
+            }
+        }
+    </select>
+    <small class="form-text text-muted">Chọn nhóm phân loại cho ứng dụng</small>
+</div>
+
+<div class="form-group">
+    <label class="control-label">URL</label>
+    <input type="url" 
+           name="Url" 
+           value="@Model.Url" 
+           class="form-control" 
+           placeholder="https://example.com" 
+           maxlength="500" />
+    <small class="form-text text-muted">Địa chỉ URL của ứng dụng</small>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Icon</label>
+    <input type="text" 
+           name="Icon" 
+           value="@Model.Icon" 
+           class="form-control" 
+           placeholder="fa-solid fa-cube" 
+           maxlength="100" />
+    <small class="form-text text-muted">Icon FontAwesome (vd: fa-solid fa-cube)</small>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Size</label>
+    <input type="text" 
+           name="Size" 
+           value="@Model.Size" 
+           class="form-control" 
+           placeholder="1x1, 2x2, 1x2, 2x1" 
+           maxlength="50" />
+    <small class="form-text text-muted">Kích thước hiển thị (vd: 1x1, 2x2)</small>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Từ khóa</label>
+    <input type="text" 
+           name="Keyword" 
+           value="@Model.Keyword" 
+           class="form-control" 
+           placeholder="Nhập từ khóa để tìm kiếm" 
+           maxlength="500" />
+    <small class="form-text text-muted">Từ khóa để tìm kiếm ứng dụng (cách nhau bởi dấu phẩy)</small>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Thứ tự ưu tiên</label>
+    <input type="number" 
+           name="Prioritize" 
+           value="@Model.Prioritize" 
+           class="form-control" 
+           placeholder="Nhập số thứ tự ưu tiên"
+           min="0"
+           step="1" />
+    <small class="form-text text-muted">Số thứ tự để sắp xếp hiển thị (số càng nhỏ càng ưu tiên)</small>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Trạng thái</label>
+    <select name="Status" class="form-control" style="padding: 1px 12px">
+        @if (Model.Status == 0)
+        {
+            <option value="0" selected="selected">Chờ duyệt</option>
+        }
+        else
+        {
+            <option value="0">Chờ duyệt</option>
+        }
+        
+        @if (Model.Status == 1)
+        {
+            <option value="1" selected="selected">Kích hoạt</option>
+        }
+        else
+        {
+            <option value="1">Kích hoạt</option>
+        }
+        
+        @if (Model.Status == 2)
+        {
+            <option value="2" selected="selected">Lỗi</option>
+        }
+        else
+        {
+            <option value="2">Lỗi</option>
+        }
+        
+        @if (Model.Status == 3)
+        {
+            <option value="3" selected="selected">Không xác định</option>
+        }
+        else
+        {
+            <option value="3">Không xác định</option>
+        }
+        
+        @if (Model.Status == 4)
+        {
+            <option value="4" selected="selected">Vô hiệu hóa</option>
+        }
+        else
+        {
+            <option value="4">Vô hiệu hóa</option>
+        }
+        
+        @if (Model.Status == 5)
+        {
+            <option value="5" selected="selected">Hết hạn</option>
+        }
+        else
+        {
+            <option value="5">Hết hạn</option>
+        }
+    </select>
+    <small class="form-text text-muted">Chọn trạng thái cho ứng dụng</small>
+</div>
+
+</form>

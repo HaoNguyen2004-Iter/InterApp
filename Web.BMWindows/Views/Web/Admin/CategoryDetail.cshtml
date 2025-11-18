@@ -1,1 +1,100 @@
-﻿
+﻿@*
+    CategoryDetail.cshtml
+    View để hiển thị form thêm/sửa Category
+    Được load vào modal thông qua advanceGrid hoặc app.createPartialModal
+*@
+
+@model Service.BMWindows.Executes.Category.CategoryViewModel
+
+@* Form với novalidate để tắt HTML5 validation *@
+<form novalidate>
+    
+@* Form fields - Các trường dữ liệu *@
+<input type="hidden" name="Id" value="@Model.Id" />
+
+<div class="form-group">
+    <label class="control-label">Tên nhóm <span class="text-danger">*</span></label>
+    <input type="text" 
+           name="Name" 
+           value="@Model.Name" 
+           class="form-control" 
+           placeholder="Nhập tên nhóm ứng dụng" 
+           maxlength="200" 
+           data-validation="required" />
+    <small class="form-text text-muted">Tên nhóm ứng dụng (bắt buộc, tối đa 200 ký tự)</small>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Thứ tự ưu tiên</label>
+    <input type="number" 
+           name="Prioritize" 
+           value="@Model.Prioritize" 
+           class="form-control" 
+           placeholder="Nhập số thứ tự ưu tiên"
+           min="0"
+           step="1" />
+    <small class="form-text text-muted">Số thứ tự để sắp xếp hiển thị (số càng nhỏ càng ưu tiên)</small>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Trạng thái</label>
+    <select name="Status" class="form-control" style="padding: 1px 12px">
+        @if (Model.Status == 0)
+        {
+            <option value="0" selected="selected">Chờ duyệt</option>
+        }
+        else
+        {
+            <option value="0">Chờ duyệt</option>
+        }
+        
+        @if (Model.Status == 1)
+        {
+            <option value="1" selected="selected">Kích hoạt</option>
+        }
+        else
+        {
+            <option value="1">Kích hoạt</option>
+        }
+        
+        @if (Model.Status == 2)
+        {
+            <option value="2" selected="selected">Lỗi</option>
+        }
+        else
+        {
+            <option value="2">Lỗi</option>
+        }
+        
+        @if (Model.Status == 3)
+        {
+            <option value="3" selected="selected">Không xác định</option>
+        }
+        else
+        {
+            <option value="3">Không xác định</option>
+        }
+        
+        @if (Model.Status == 4)
+        {
+            <option value="4" selected="selected">Vô hiệu hóa</option>
+        }
+        else
+        {
+            <option value="4">Vô hiệu hóa</option>
+        }
+        
+        @if (Model.Status == 5)
+        {
+            <option value="5" selected="selected">Hết hạn</option>
+        }
+        else
+        {
+            <option value="5">Hết hạn</option>
+        }
+    </select>
+    <small class="form-text text-muted">Chọn trạng thái cho nhóm ứng dụng</small>
+</div>
+
+</form>
+

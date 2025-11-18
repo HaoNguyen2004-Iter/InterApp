@@ -10,25 +10,17 @@
     </div>
 
     <ul class="nav flex-column sidebar-nav">
-        <!-- Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link active" href="#" data-target="dashboard">
-                <i class="nav-icon fa-solid fa-gauge-high"></i>
-                <span class="nav-text">Dashboard</span>
-            </a>
-        </li>
-
         <!-- Ứng dụng -->
         <li class="nav-item">
-            <a class="nav-link has-submenu" data-bs-toggle="collapse" href="#menu-ungdung" role="button">
+            <a class="nav-link has-submenu active" data-bs-toggle="collapse" href="#menu-ungdung" role="button">
                 <i class="nav-icon fa-solid fa-shapes"></i>
                 <span class="nav-text">Ứng dụng</span>
                 <i class="nav-arrow fa-solid fa-chevron-down"></i>
             </a>
-            <div class="collapse submenu" id="menu-ungdung">
+            <div class="collapse submenu show" id="menu-ungdung">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="#" class="nav-link" data-target="category-management">
+                        <a href="#" class="nav-link active" data-target="category-management">
                             <span class="submenu-dot"></span>
                             Nhóm ứng dụng
                         </a>
@@ -41,39 +33,6 @@
                     </li>
                 </ul>
             </div>
-        </li>
-
-        <!-- Chức năng -->
-        <li class="nav-item">
-            <a class="nav-link has-submenu" data-bs-toggle="collapse" href="#menu-chucnang" role="button">
-                <i class="nav-icon fa-solid fa-bolt"></i>
-                <span class="nav-text">Chức năng</span>
-                <i class="nav-arrow fa-solid fa-chevron-down"></i>
-            </a>
-            <div class="collapse submenu" id="menu-chucnang">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-target="feature-1">
-                            <span class="submenu-dot"></span>
-                            Tính năng 1
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-target="feature-2">
-                            <span class="submenu-dot"></span>
-                            Tính năng 2
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-        <!-- Người dùng -->
-        <li class="nav-item">
-            <a class="nav-link" href="#" data-target="user-management">
-                <i class="nav-icon fa-solid fa-users"></i>
-                <span class="nav-text">Người dùng</span>
-            </a>
         </li>
 
         <!-- Cài đặt -->
@@ -93,7 +52,7 @@
             </div>
             <div class="user-details">
                 <div class="user-name">Administrator</div>
-                <div class="user-role"> Admin</div>
+                <div class="user-role">Admin</div>
             </div>
         </div>
     </div>

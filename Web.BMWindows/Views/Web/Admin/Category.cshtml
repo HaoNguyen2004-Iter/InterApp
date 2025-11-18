@@ -1,13 +1,13 @@
 ﻿@using Service.Utility.Components
 @{
-	ViewBag.Title = "Danh sách ứng dụng";
+	ViewBag.Title = "Quản lý Nhóm ứng dụng";
 	Layout = "~/Views/Web/layouts/Default.cshtml";
 }
 
 <!-- Content Container -->
 <div class="content-wrapper">
 	<!-- Category Management Section -->
-	<section id="category-management" class="content-section">
+	<section id="category-management" class="content-section active">
 		<div id="CategoryList_panel">
 			<div class="page-header">
 				<div>
@@ -17,7 +17,7 @@
 			</div>
 			<div class="panel-footer main-toolbar" style="background:none">
 				<div class="heading-elements">
-					<ul class="nav navbar-nav" style="display: flex; flex-direction"">
+					<ul class="nav navbar-nav" style="display: flex; flex-direction: row;">
 						@AppHelper.NavbarTools(new[] { "add", "reload" })
 					</ul>
 				</div>

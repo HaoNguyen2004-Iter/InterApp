@@ -36,7 +36,9 @@ builder.Services.AddDbContext<BMWindowDBContext>(options =>
     }
 });
 
+// Register Services
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<AppItemService>();
 
 var app = builder.Build();
 

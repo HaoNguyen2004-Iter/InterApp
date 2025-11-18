@@ -151,4 +151,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Web\Category\Partials\" />
+  </ItemGroup>
 </Project>

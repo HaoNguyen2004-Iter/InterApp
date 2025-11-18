@@ -16,6 +16,7 @@ namespace BMWindows.Controllers
         {
             _categoryService = categoryService;
         }
+        
         public IActionResult Index()
         {
             return View("~/Views/Web/Admin/Category.cshtml");
@@ -29,15 +30,110 @@ namespace BMWindows.Controllers
 
         public async Task<IActionResult> CategoryDetail(int Id)
         {
-            if (Id < 0)
-                return RedirectToAction("Index");
-
-            var model = await _categoryService.CategoryOne(Id);
-            if (model == null)
-                return RedirectToAction("Index");
-            return View("~/Views/Web/Admin/CategoryDetail.cshtml",model);
+            CategoryViewModel model;
+            
+            if (Id > 0)
+            {
+                model = await _categoryService.CategoryOne(Id);
+                if (model == null)
+                    return RedirectToAction("Index");
+            }
+            else
+            {
+                // Tạo mới - trả về model rỗng
+                model = new CategoryViewModel();
+            }
+            
+            return View("~/Views/Web/Admin/CategoryDetail.cshtml", model);
         }
 
+        // Thêm action này để hỗ trợ advanceGrid contextMenu edit
+        public async Task<IActionResult> CategoryEdit(int? id)
+        {
+            CategoryViewModel model;
+            
+            if (id.HasValue && id.Value > 0)
+            {
+                model = await _categoryService.CategoryOne(id.Value);
+                if (model == null)
+                {
+                    model = new CategoryViewModel();
+                }
+            }
+            else
+            {
+                // Tạo mới - trả về model rỗng
+                model = new CategoryViewModel();
+            }
+            
+            return PartialView("~/Views/Web/Admin/CategoryDetail.cshtml", model);
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> CategoryEdit(CategoryEditModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    var errors = ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage)
+                        .ToList();
+                    
+                    return Json(new { 
+                        success = false, 
+                        message = "Vui lòng nhập đầy đủ dữ liệu: " + string.Join(", ", errors) 
+                    });
+                }
+
+                // Log dữ liệu nhận được để debug
+                Console.WriteLine($"CategoryEdit - Id: {model.Id}, Name: {model.Name}, Status: {model.Status}, Prioritize: {model.Prioritize}");
+                
+                CommandResult<DBContext.BMWindows.Entities.Category> result;
+                
+                if (model.Id > 0)
+                {
+                    // Cập nhật
+                    result = await _categoryService.EditCategory(model);
+                }
+                else
+                {
+                    // Tạo mới
+                    result = await _categoryService.CreateCategory(model);
+                }
+
+                if (result.Success)
+                {
+                    return Json(new 
+                    { 
+                        success = true, 
+                        message = model.Id > 0 ? "Cập nhật thành công" : "Tạo mới thành công",
+                        data = result.Data
+                    });
+                }
+                else
+                {
+                    return Json(new { success = false, message = result.Message });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log chi tiết lỗi 
+                var errorMessage = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorMessage += " | Inner: " + ex.InnerException.Message;
+                                   
+                }
+                
+               
+                
+                return Json(new { 
+                    success = false, 
+                    message = "Có lỗi xảy ra: " + errorMessage 
+                });
+            }
+        }
     }
 }

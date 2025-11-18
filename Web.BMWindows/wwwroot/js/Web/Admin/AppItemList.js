@@ -1,92 +1,57 @@
 ﻿var table;
 
 $(document).ready(function () {
-    var panel = '#CategoryList_panel';
+    var panel = '#AppItemList_panel';
     table = $(panel + " .apply-table").advanceGrid({
-        dataUrl: '/Category/CategoryList',
-        model: "Category",
-        editController: '/Category',
+        dataUrl: '/AppItem/AppItemList',
+        model: "AppItem",
+        editController: '/AppItem',
         checkAll: true,
         width: {},
         filterable: true,
         height: { top: 150 },
-        modal: { type: 1, width: '800px', title: 'Nhóm ứng dụng' },
+        modal: { type: 1, width: '900px', title: 'Ứng dụng' },
         toolbars: {
             reload: { ele: panel + ' .main-toolbar .btn-reload' }
         },
-        contextMenu: ['edit'], //advance grid
+        contextMenu: ['edit'],
         loadModalCallback: function (row) {
-            // Callback sau khi modal được load
-            var modalId = 'CategoryFormEditModal';
+            var modalId = 'AppItemFormEditModal';
             
-         
             $('#' + modalId + ' .btn-submit').unbind('click').click(function () {
                 var btn = $(this);
-                
-                /**
-                 * .button('loading'): Hiển thị trạng thái loading trên nút
-                 * Text nút sẽ đổi thành "Đang xử lý..." với spinner
-                 */
                 btn.button('loading');
                 
-                /**
-                 * .serialize(): Chuyển tất cả input trong form thành chuỗi             
-                 */
                 var formData = $('#' + modalId + ' form').serialize();
                 
-                /**
-                 * Submit form qua AJAX
-                 * URL: /Category/CategoryEdit (POST)
-                 * Data: form data đã serialize
-                 */
                 $.ajax({
-                    url: '/Category/CategoryEdit',
+                    url: '/AppItem/AppItemEdit',
                     type: 'POST',
                     data: formData,
-                    
-                 
                     success: function (result) {
-                        // Reset trạng thái nút về bình thường
                         btn.button('reset');
                         
                         if (result.success) {
-                            // Đóng modal
                             $('#' + modalId).modal('hide');
-                            
-                            /**
-                             * Reload lại bảng để hiển thị dữ liệu mới
-                             * loadData() là method của advanceGrid
-                             */
                             table.loadData();
                             
-                            /**
-                             * Hiển thị thông báo thành công
-                             * app.notify() là function từ file script.js
-                             * Tham số: ('success'|'error'|'warning'|'info', message)
-                             */
                             if (typeof app !== 'undefined' && typeof app.notify === 'function') {
                                 app.notify('success', result.message);
                             }
                         } else {
-                            // Hiển thị lỗi từ server
                             if (typeof app !== 'undefined' && typeof app.notify === 'function') {
                                 app.notify('error', result.message);
                             } else {
-                                // Fallback nếu app.notify không tồn tại
                                 alert(result.message);
                             }
                         }
                     },
-                    
-                    /**
-                     * Callback khi request lỗi (network error, server error, etc)
-                     */
                     error: function () {
                         btn.button('reset');
                         if (typeof app !== 'undefined' && typeof app.notify === 'function') {
-                            app.notify('error', 'Có lỗi xảy ra khi lưu dữ liệu');
+                            app.notify('error', 'Có lỗi xảy ra ra khi lưu');
                         } else {
-                            alert('Có lỗi xảy ra khi lưu dữ liệu');
+                            alert('Có lỗi xảy ra ra khi lưu');
                         }
                     }
                 });
@@ -95,18 +60,21 @@ $(document).ready(function () {
         loadDataCallback: function () {
             $('.Detail').click(function () {
                 var id = $(this).attr('id');
-                window.location.href = "/Category/CategoryDetail?Id=" + id;
+                window.location.href = "/AppItem/AppItemEdit?id=" + id;
             });
         },
         params: { search: { hasCount: true, limit: 20 } },
-        head: { height: 60, groups: [50, 220, 50, 100, 200, 200, 200, 200] },
+        head: { height: 60, groups: [50, 250, 150, 200, 80, 120, 100, 200, 200, 200, 200] },
         skipCols: 0,
         cols: {
             left: [[]],
             right: [[
                 { title: 'STT', style: "height:60px" },
-                { title: 'Tên nhóm' },
-                { title: 'Ưu tiên' },
+                { title: 'Tên ứng dụng' },
+                { title: 'Nhóm' },
+                { title: 'URL' },
+                { title: 'Icon' },
+                { title: 'Từ khóa' },
                 { title: 'Trạng thái' },
                 { title: 'Người tạo' },
                 { title: 'Ngày tạo' },
@@ -126,52 +94,61 @@ $(document).ready(function () {
                     return '';
                 }
             },
-            { type: 'text', attribute: 'Prioritize' },
-            { 
-                type: 'text', 
+            {
+                type: 'text', attribute: 'CategoryName',
+                filter: { type: 'contains', attr: 'categoryId' }
+            },
+            {
+                type: 'text', attribute: 'Url',
+                render: function (row) {
+                    if (row.Url) {
+                        return '<a href="' + row.Url + '" target="_blank" title="' + row.Url + '">' + 
+                               (row.Url.length > 30 ? row.Url.substring(0, 30) + '...' : row.Url) + 
+                               '</a>';
+                    }
+                    return '';
+                }
+            },
+            {
+                type: 'text', attribute: 'Icon',
+                render: function (row) {
+                    if (row.Icon) {
+                        return '<i class="' + row.Icon + '"></i> ' + row.Icon;
+                    }
+                    return '';
+                }
+            },
+            { type: 'text', attribute: 'Keyword' },
+            {
+                type: 'text',
                 attribute: 'Status',
                 render: function (row) {
-                    /**
-                     * Render Status dựa theo ObjectStatus enum:
-                     * 0 = Pending (Chờ duyệt) - Màu vàng/cam
-                     * 1 = Active (Kích hoạt) - Màu xanh lá
-                     * 2 = Error (Lỗi) - Màu đỏ
-                     * 3 = NoStatus (Không xác định) - Màu xanh dương nhạt
-                     * 4 = Disable (Vô hiệu hóa) - Màu tím
-                     * 5 = Expired (Hết hạn) - Màu cam đậm
-                     */
                     var status = row.Status;
                     var html = '';
-                    
-                    switch(status) {
+
+                    switch (status) {
                         case 0:
-                            // Chờ duyệt - Màu vàng/cam
                             html = '<span class="badge badge-warning">Chờ duyệt</span>';
                             break;
                         case 1:
-                            // Kích hoạt - Màu xanh lá
                             html = '<span class="badge badge-success">Kích hoạt</span>';
                             break;
                         case 2:
-                            // Lỗi - Màu đỏ
                             html = '<span class="badge badge-danger">Lỗi</span>';
                             break;
                         case 3:
-                            // Không xác định - Màu xanh dương nhạt (info)
                             html = '<span class="badge badge-info">Không xác định</span>';
                             break;
                         case 4:
-                            // Vô hiệu hóa - Màu tím (primary)
                             html = '<span class="badge" style="background-color: #9c27b0; color: white;">Vô hiệu hóa</span>';
                             break;
                         case 5:
-                            // Hết hạn - Màu cam đậm
                             html = '<span class="badge" style="background-color: #ff6f00; color: white;">Hết hạn</span>';
                             break;
                         default:
                             html = '<span class="badge badge-secondary">' + status + '</span>';
                     }
-                    
+
                     return html;
                 }
             },
@@ -181,64 +158,59 @@ $(document).ready(function () {
             { type: 'text', attribute: 'UpdatedDate' }
         ]
     });
-    
-    // Bind sự kiện nút Thêm mới NGOÀI advanceGrid
-    // Vì nút nằm ở .main-toolbar (ngoài table)
+
+    // Bind s? ki?n nút Thêm m?i
     console.log('Binding btn-add...');
     console.log('Button exists:', $(panel + ' .main-toolbar .btn-add').length);
-    
+
     $(panel + ' .main-toolbar .btn-add').off('click').on('click', function () {
         console.log('Nút Thêm mới được click');
-        editCategory(0, function () {
+        editAppItem(0, function () {
             table.loadData();
         });
     });
 });
 
-function editCategory(id, callback) {
-    var modalTitle = id > 0 ? 'Cập nhật nhóm ứng dụng' : 'Thêm mới nhóm ứng dụng';
-    var mid = 'editCategoryModal';
-    
+function editAppItem(id, callback) {
+    var modalTitle = id > 0 ? 'Cập nhật ứng dụng' : 'Thêm mới ứng dụng';
+    var mid = 'editAppItemModal';
+
     app.createPartialModal({
-        url: '/Category/CategoryEdit',  // Sửa từ CategoryDetail thành CategoryEdit (GET)
+        url: '/AppItem/AppItemEdit',
         data: {
-            id: id || 0  // Đổi Id thành id (lowercase) để khớp với Controller
+            id: id || 0
         },
         modal: {
             title: modalTitle,
-            width: '800px',
+            width: '900px',
             id: mid,
-            model: 'Category'
+            model: 'AppItem'
         }
     }, function () {
-        // Modal đã được load, bind sự kiện nút Submit
         $('#' + mid + ' .btn-submit').unbind('click').click(function () {
             var btn = $(this);
             btn.button('loading');
-            
+
             var formData = $('#' + mid + ' form').serialize();
-            
+
             $.ajax({
-                url: '/Category/CategoryEdit',  // POST
+                url: '/AppItem/AppItemEdit',
                 type: 'POST',
                 data: formData,
                 success: function (result) {
                     btn.button('reset');
-                    
+
                     if (result.success) {
                         $('#' + mid).modal('hide');
-                        
-                        // Hiển thị thông báo thành công
+
                         if (typeof app !== 'undefined' && typeof app.notify === 'function') {
                             app.notify('success', result.message);
                         }
-                        
-                        // Gọi callback để reload table
+
                         if (callback) {
                             callback();
                         }
                     } else {
-                        // Hiển thị lỗi
                         if (typeof app !== 'undefined' && typeof app.notify === 'function') {
                             app.notify('error', result.message);
                         } else {

@@ -408,14 +408,58 @@ var newGuid = function (length) {
         return str.replace(new RegExp('\n', 'g'), '<br/>');
     },
     app_notify = function (type, message, br) {
+        // Mapping type cho PNotify (đúng format)
+        var pnotifyType = 'info';  // Default
+        
+        switch(type) {
+            case 'success':
+                pnotifyType = 'success';
+                break;
+            case 'error':
+                pnotifyType = 'error';
+                break;
+            case 'warning':
+                pnotifyType = 'notice';  // PNotify dùng 'notice' cho warning
+                break;
+            case 'info':
+                pnotifyType = 'info';
+                break;
+        }
+        
         var opts = {
             text: message,
-            addclass: 'bg-' + type
+            type: pnotifyType,
+            styling: 'bootstrap3',
+            hide: true,
+            delay: 3000,
+            buttons: {
+                closer: true,
+                sticker: false
+            },
+            width: '300px'
         };
 
+        // Vị trí hiển thị
         if (br) {
-            opts.addclass += ' stack-bottom-right';
-            opts.stack = { "dir1": "left", "dir2": "up", "firstpos1": 20, "firstpos2": 20 };
+            opts.addclass = 'stack-bottom-right';
+            opts.stack = { 
+                "dir1": "left", 
+                "dir2": "up", 
+                "firstpos1": 20, 
+                "firstpos2": 20, 
+                "spacing1": 10, 
+                "spacing2": 10 
+            };
+        } else {
+            opts.addclass = 'stack-top-right';
+            opts.stack = { 
+                "dir1": "down", 
+                "dir2": "left", 
+                "firstpos1": 60, 
+                "firstpos2": 25, 
+                "spacing1": 10, 
+                "spacing2": 10 
+            };
         }
 
         new PNotify(opts);

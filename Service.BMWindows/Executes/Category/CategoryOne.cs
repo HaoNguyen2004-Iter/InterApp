@@ -11,6 +11,10 @@ namespace Service.BMWindows.Executes.Base
         public async Task<CategoryViewModel> CategoryOne(int Id)
         {
             var categoryEntity = await Context.Categories.Where(x => x.Id == Id && x.Status >= 0).FirstOrDefaultAsync();
+            if (categoryEntity == null)
+            {
+                return null; // Trả về null ngay lập tức nếu không tìm thấy
+            }
 
             CategoryViewModel item = null;
 
