@@ -13,20 +13,20 @@ namespace Service.BMWindows.Executes.Base
         {
             var query = Context.AppItems.AsQueryable();
 
-            // Filter by keyword
+            // Filter  keyword
             if (!string.IsNullOrWhiteSpace(model.Keyword))
             {
                 query = query.Where(x => x.Name.Contains(model.Keyword) || 
                                         (x.Keyword != null && x.Keyword.Contains(model.Keyword)));
             }
 
-            // Filter by CategoryId
+            // Filter CategoryId
             if (model.CategoryId.HasValue && model.CategoryId.Value > 0)
             {
                 query = query.Where(x => x.CategoryId == model.CategoryId.Value);
             }
 
-            // Filter by Status
+            // Filter  Status
             if (model.Status.HasValue)
             {
                 query = query.Where(x => x.Status == model.Status.Value);
@@ -36,7 +36,7 @@ namespace Service.BMWindows.Executes.Base
 
             result.Count = await query.CountAsync();
 
-            // Order by Prioritize, then by Id
+            // Order by Prioritize, Id
             var r = query
                 .OrderBy(x => x.Prioritize)
                 .ThenBy(x => x.Id)
@@ -53,9 +53,9 @@ namespace Service.BMWindows.Executes.Base
                     Keyword = x.Keyword,
                     Prioritize = x.Prioritize,
                     CreatedDate = x.CreatedDate,
-                    CreatedBy = "Administrator", // TODO: Get from User table
+                    CreatedBy = x.CreatedBy.ToString(), 
                     UpdatedDate = x.UpdatedDate,
-                    UpdatedBy = "Administrator" // TODO: Get from User table
+                    UpdatedBy = x.UpdatedBy.ToString(),
                 });
 
             result.Many = await r.Skip(result.Skip).Take(result.Take).ToListAsync();

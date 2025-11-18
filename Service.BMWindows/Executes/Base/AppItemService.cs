@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using DBContext.BMWindows.Entities;
 using Service.Utility.Components;
 using System.Threading.Tasks;
@@ -23,7 +23,7 @@ namespace Service.BMWindows.Executes.Base
             catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
             {
                 var msg = e.InnerException?.Message ?? e.Message;
-                throw new Exception($"L?i khi l�u d? li?u: {msg}", e);
+                throw new Exception($"Lỗi khi lưu dữ liệu: {msg}", e);
             }
         }
 
