@@ -9,12 +9,13 @@ $(document).ready(function () {
         checkAll: true,
         width: {},
         filterable: true,
-        height: { top: 150 },
+        height: { top: 250 },
         modal: { type: 1, width: '900px', title: 'Ứng dụng' },
         toolbars: {
             reload: { ele: panel + ' .main-toolbar .btn-reload' }
         },
         contextMenu: ['edit'],
+        paging: { options: [10, 20, 30, 50] },
         loadModalCallback: function (row) {
             var modalId = 'AppItemFormEditModal';
             
@@ -74,7 +75,7 @@ $(document).ready(function () {
                 { title: 'Nhóm' },
                 { title: 'URL' },
                 { title: 'Icon' },
-                { title: 'Từ khóa' },
+                { title: 'Ưu tiên' },
                 { title: 'Trạng thái' },
                 { title: 'Người tạo' },
                 { title: 'Ngày tạo' },
@@ -118,7 +119,7 @@ $(document).ready(function () {
                     return '';
                 }
             },
-            { type: 'text', attribute: 'Keyword' },
+            { type: 'text', attribute: 'Prioritize' },
             {
                 type: 'text',
                 attribute: 'Status',
@@ -159,7 +160,6 @@ $(document).ready(function () {
         ]
     });
 
-    // Bind s? ki?n nút Thêm m?i
     console.log('Binding btn-add...');
     console.log('Button exists:', $(panel + ' .main-toolbar .btn-add').length);
 
