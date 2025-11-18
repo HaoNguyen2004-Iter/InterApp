@@ -28,26 +28,6 @@ namespace BMWindows.Controllers
             return Json(result);
         }
 
-        public async Task<IActionResult> CategoryDetail(int Id)
-        {
-            CategoryViewModel model;
-            
-            if (Id > 0)
-            {
-                model = await _categoryService.CategoryOne(Id);
-                if (model == null)
-                    return RedirectToAction("Index");
-            }
-            else
-            {
-                // Tạo mới - trả về model rỗng
-                model = new CategoryViewModel();
-            }
-            
-            return View("~/Views/Web/Admin/CategoryDetail.cshtml", model);
-        }
-
-        // Thêm action này để hỗ trợ advanceGrid contextMenu edit
         public async Task<IActionResult> CategoryEdit(int? id)
         {
             CategoryViewModel model;
@@ -62,7 +42,6 @@ namespace BMWindows.Controllers
             }
             else
             {
-                // Tạo mới - trả về model rỗng
                 model = new CategoryViewModel();
             }
             
@@ -87,9 +66,6 @@ namespace BMWindows.Controllers
                     });
                 }
 
-                // Log dữ liệu nhận được để debug
-                Console.WriteLine($"CategoryEdit - Id: {model.Id}, Name: {model.Name}, Status: {model.Status}, Prioritize: {model.Prioritize}");
-                
                 CommandResult<DBContext.BMWindows.Entities.Category> result;
                 
                 if (model.Id > 0)

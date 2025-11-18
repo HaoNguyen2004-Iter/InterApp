@@ -6,7 +6,6 @@ $(document).ready(function () {
         dataUrl: '/Category/CategoryList',
         model: "Category",
         editController: '/Category',
-        checkAll: true,
         width: {},
         filterable: true,
         height: { top: 150 },
@@ -14,56 +13,31 @@ $(document).ready(function () {
         toolbars: {
             reload: { ele: panel + ' .main-toolbar .btn-reload' }
         },
-        contextMenu: ['edit'], //advance grid
+        contextMenu: ['edit'], 
+        paging: {options: [10, 20, 30, 50]},
         loadModalCallback: function (row) {
-            // Callback sau khi modal được load
             var modalId = 'CategoryFormEditModal';
             
-         
             $('#' + modalId + ' .btn-submit').unbind('click').click(function () {
                 var btn = $(this);
-                
-                /**
-                 * .button('loading'): Hiển thị trạng thái loading trên nút
-                 * Text nút sẽ đổi thành "Đang xử lý..." với spinner
-                 */
                 btn.button('loading');
                 
-                /**
-                 * .serialize(): Chuyển tất cả input trong form thành chuỗi             
-                 */
                 var formData = $('#' + modalId + ' form').serialize();
                 
-                /**
-                 * Submit form qua AJAX
-                 * URL: /Category/CategoryEdit (POST)
-                 * Data: form data đã serialize
-                 */
                 $.ajax({
                     url: '/Category/CategoryEdit',
                     type: 'POST',
                     data: formData,
-                    
                  
                     success: function (result) {
-                        // Reset trạng thái nút về bình thường
                         btn.button('reset');
                         
                         if (result.success) {
                             // Đóng modal
                             $('#' + modalId).modal('hide');
                             
-                            /**
-                             * Reload lại bảng để hiển thị dữ liệu mới
-                             * loadData() là method của advanceGrid
-                             */
                             table.loadData();
                             
-                            /**
-                             * Hiển thị thông báo thành công
-                             * app.notify() là function từ file script.js
-                             * Tham số: ('success'|'error'|'warning'|'info', message)
-                             */
                             if (typeof app !== 'undefined' && typeof app.notify === 'function') {
                                 app.notify('success', result.message);
                             }
@@ -78,9 +52,6 @@ $(document).ready(function () {
                         }
                     },
                     
-                    /**
-                     * Callback khi request lỗi (network error, server error, etc)
-                     */
                     error: function () {
                         btn.button('reset');
                         if (typeof app !== 'undefined' && typeof app.notify === 'function') {
@@ -131,42 +102,16 @@ $(document).ready(function () {
                 type: 'text', 
                 attribute: 'Status',
                 render: function (row) {
-                    /**
-                     * Render Status dựa theo ObjectStatus enum:
-                     * 0 = Pending (Chờ duyệt) - Màu vàng/cam
-                     * 1 = Active (Kích hoạt) - Màu xanh lá
-                     * 2 = Error (Lỗi) - Màu đỏ
-                     * 3 = NoStatus (Không xác định) - Màu xanh dương nhạt
-                     * 4 = Disable (Vô hiệu hóa) - Màu tím
-                     * 5 = Expired (Hết hạn) - Màu cam đậm
-                     */
+                   
                     var status = row.Status;
                     var html = '';
                     
                     switch(status) {
                         case 0:
-                            // Chờ duyệt - Màu vàng/cam
-                            html = '<span class="badge badge-warning">Chờ duyệt</span>';
+                            html = '<span class="badge badge-warning">Dừng</span>';
                             break;
                         case 1:
-                            // Kích hoạt - Màu xanh lá
-                            html = '<span class="badge badge-success">Kích hoạt</span>';
-                            break;
-                        case 2:
-                            // Lỗi - Màu đỏ
-                            html = '<span class="badge badge-danger">Lỗi</span>';
-                            break;
-                        case 3:
-                            // Không xác định - Màu xanh dương nhạt (info)
-                            html = '<span class="badge badge-info">Không xác định</span>';
-                            break;
-                        case 4:
-                            // Vô hiệu hóa - Màu tím (primary)
-                            html = '<span class="badge" style="background-color: #9c27b0; color: white;">Vô hiệu hóa</span>';
-                            break;
-                        case 5:
-                            // Hết hạn - Màu cam đậm
-                            html = '<span class="badge" style="background-color: #ff6f00; color: white;">Hết hạn</span>';
+                            html = '<span class="badge badge-success">Hoạt động</span>';
                             break;
                         default:
                             html = '<span class="badge badge-secondary">' + status + '</span>';
@@ -182,13 +127,7 @@ $(document).ready(function () {
         ]
     });
     
-    // Bind sự kiện nút Thêm mới NGOÀI advanceGrid
-    // Vì nút nằm ở .main-toolbar (ngoài table)
-    console.log('Binding btn-add...');
-    console.log('Button exists:', $(panel + ' .main-toolbar .btn-add').length);
-    
     $(panel + ' .main-toolbar .btn-add').off('click').on('click', function () {
-        console.log('Nút Thêm mới được click');
         editCategory(0, function () {
             table.loadData();
         });
@@ -200,9 +139,9 @@ function editCategory(id, callback) {
     var mid = 'editCategoryModal';
     
     app.createPartialModal({
-        url: '/Category/CategoryEdit',  // Sửa từ CategoryDetail thành CategoryEdit (GET)
+        url: '/Category/CategoryEdit', 
         data: {
-            id: id || 0  // Đổi Id thành id (lowercase) để khớp với Controller
+            id: id || 0 
         },
         modal: {
             title: modalTitle,

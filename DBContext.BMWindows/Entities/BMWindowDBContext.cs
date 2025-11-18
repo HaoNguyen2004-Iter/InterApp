@@ -88,8 +88,8 @@ namespace DBContext.BMWindows.Entities
                       .HasColumnType("datetime")
                       .HasDefaultValueSql("SYSDATETIME()");
 
-                entity.Property(e => e.UpdatedBy)
-                      .IsRequired();
+                // UpdatedBy is nullable in DB -> do not mark as required
+                entity.Property(e => e.UpdatedBy);
 
                 entity.Property(e => e.UpdatedDate)
                       .HasColumnType("datetime")
@@ -99,7 +99,7 @@ namespace DBContext.BMWindows.Entities
                 entity.HasIndex(e => e.Status).HasDatabaseName("IX_AppItems_Status");
                 entity.HasIndex(e => e.Keyword).HasDatabaseName("IX_AppItems_Keyword");
                 entity.HasIndex(e => e.Prioritize)
-                      .IsUnique()
+                      .IsUnique(false)
                       .HasDatabaseName("UX_AppItems_Prioritize");
 
                 entity.HasOne<Category>()

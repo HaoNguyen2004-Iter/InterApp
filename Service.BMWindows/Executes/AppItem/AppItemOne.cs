@@ -24,9 +24,9 @@ namespace Service.BMWindows.Executes.Base
                     Keyword = x.Keyword,
                     Prioritize = x.Prioritize,
                     CreatedDate = x.CreatedDate,
-                    CreatedBy = "Administrator",
+                    CreatedBy = x.CreatedBy,     
                     UpdatedDate = x.UpdatedDate,
-                    UpdatedBy = "Administrator"
+                    UpdatedBy = x.UpdatedBy      
                 })
                 .FirstOrDefaultAsync();
 

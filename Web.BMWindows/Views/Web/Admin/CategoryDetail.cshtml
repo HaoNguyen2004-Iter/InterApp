@@ -41,57 +41,23 @@
     <select name="Status" class="form-control" style="padding: 1px 12px">
         @if (Model.Status == 0)
         {
-            <option value="0" selected="selected">Chờ duyệt</option>
+            <option value="0" selected="selected">Dừng</option>
         }
         else
         {
-            <option value="0">Chờ duyệt</option>
+            <option value="0">Dừng</option>
         }
         
         @if (Model.Status == 1)
         {
-            <option value="1" selected="selected">Kích hoạt</option>
+            <option value="1" selected="selected">Hoạt động</option>
         }
         else
         {
-            <option value="1">Kích hoạt</option>
+            <option value="1">Hoạt động</option>
         }
         
-        @if (Model.Status == 2)
-        {
-            <option value="2" selected="selected">Lỗi</option>
-        }
-        else
-        {
-            <option value="2">Lỗi</option>
-        }
-        
-        @if (Model.Status == 3)
-        {
-            <option value="3" selected="selected">Không xác định</option>
-        }
-        else
-        {
-            <option value="3">Không xác định</option>
-        }
-        
-        @if (Model.Status == 4)
-        {
-            <option value="4" selected="selected">Vô hiệu hóa</option>
-        }
-        else
-        {
-            <option value="4">Vô hiệu hóa</option>
-        }
-        
-        @if (Model.Status == 5)
-        {
-            <option value="5" selected="selected">Hết hạn</option>
-        }
-        else
-        {
-            <option value="5">Hết hạn</option>
-        }
+       
     </select>
     <small class="form-text text-muted">Chọn trạng thái cho nhóm ứng dụng</small>
 </div>

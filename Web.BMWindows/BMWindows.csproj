@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Web\Category\**" />
+    <Content Remove="Views\Web\Category\**" />
+    <EmbeddedResource Remove="Views\Web\Category\**" />
+    <None Remove="Views\Web\Category\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\test\media-manage\ui\slimscroll\node_modules\.package-lock.json" />
     <Content Include="wwwroot\test\media-manage\ui\slimscroll\node_modules\jquery\AUTHORS.txt" />
     <Content Include="wwwroot\test\media-manage\ui\slimscroll\node_modules\jquery\bower.json" />
@@ -150,9 +157,5 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Web\Category\Partials\" />
   </ItemGroup>
 </Project>

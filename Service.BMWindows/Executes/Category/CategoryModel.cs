@@ -13,16 +13,6 @@ namespace Service.BMWindows.Executes.Category
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         
-        /// <summary>
-        /// Tr?ng thái Category
-        /// null = Không filter theo Status (l?y t?t c?)
-        /// 0 = Ch? duy?t
-        /// 1 = Kích ho?t
-        /// 2 = L?i
-        /// 3 = Không xác ð?nh
-        /// 4 = Vô hi?u hóa
-        /// 5 = H?t h?n
-        /// </summary>
         public int? Status { get; set; }
         
         public string? Keyword { get; set; }

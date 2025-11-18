@@ -20,7 +20,6 @@ namespace Service.BMWindows.Executes.Base
         {
             if (model == null) model = new SearchCategoryModel();
 
-            // Lấy tất cả Category có Status >= 0 (loại trừ các record bị xóa có Status < 0)
             IQueryable<DBContext.BMWindows.Entities.Category> q = Context.Categories.Where(x => x.Status >= 0);
 
             if (model.Id > 0)
@@ -40,8 +39,6 @@ namespace Service.BMWindows.Executes.Base
                 q = q.Where(x => x.Name != null && x.Name.Contains(k));
             }
 
-            // CHỈ filter theo Status khi model.Status có giá trị (not null)
-            // Nếu null = không filter = lấy tất cả trạng thái
             if (model.Status.HasValue)
                 q = q.Where(x => x.Status == model.Status.Value);
 
@@ -86,7 +83,6 @@ namespace Service.BMWindows.Executes.Base
                 Prioritize = x.Prioritize
             });
 
-            // Sắp xếp theo Prioritize (số nhỏ lên trước)
             r = r.OrderBy(x => x.Prioritize);
 
             result.Many = await r.Skip(result.Skip).Take(result.Take).ToListAsync();
