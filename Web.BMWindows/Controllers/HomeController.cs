@@ -23,7 +23,7 @@ namespace Web.BMWindows.Controllers
 
         //[HttpGet]
         //[Route("User/Index")]
-        public async Task<IActionResult> UserIndex(int categoryId)
+        public async Task<IActionResult> UserIndex(int? categoryId)
         {
             // Load all active Categories (Status = 1)
             var categorySearchModel = new SearchCategoryModel
@@ -43,7 +43,7 @@ namespace Web.BMWindows.Controllers
             var appItemSearchModel = new SearchAppItemModel
             {
                 Status = 1, // Only active items
-                CategoryId = categoryId // Filter by category if provided
+                CategoryId = categoryId ?? 0 // Filter by category if provided
             };
 
             var appItemOption = new OptionResult
@@ -53,19 +53,19 @@ namespace Web.BMWindows.Controllers
 
             var appItems = await _appItemService.AppItemMany(appItemSearchModel, appItemOption);
 
-            ViewBag.SelectedCategoryId = categoryId;
+            ViewBag.SelectedCategoryId = categoryId; // Will be null if not provided
 
             return View("~/Views/Web/User/Home/Index.cshtml", appItems.Many);
         }
 
         [HttpGet]
         [Route("User/LoadAppItems")]
-        public async Task<IActionResult> LoadAppItems(int categoryId)
+        public async Task<IActionResult> LoadAppItems(int? categoryId)
         {
             var appItemSearchModel = new SearchAppItemModel
             {
                 Status = 1, // Only active items
-                CategoryId = categoryId 
+                CategoryId = categoryId ?? 0
             };
 
             var appItemOption = new OptionResult

@@ -3,6 +3,7 @@ $(function() {
     initUserMenu();
     initAppItemsAnimation();
     initCategoryFilter();
+    initActiveCategoryOnLoad(); // Thêm hàm này
 });
 
 // Hàm khởi tạo menu người dùng
@@ -95,6 +96,17 @@ function initCategoryFilter() {
         // Load app items via AJAX
         loadAppItems(categoryId);
     });
+}
+
+// Hàm khởi tạo active category khi trang load
+function initActiveCategoryOnLoad() {
+    // Kiểm tra xem có category filter nào đã được active chưa
+    const $activeFilter = $('.category-filter.active');
+    
+    // Nếu chưa có filter nào active, tự động active "Tất cả"
+    if ($activeFilter.length === 0) {
+        $('.category-filter[data-category-id=""]').addClass('active');
+    }
 }
 
 // Hàm load app items qua AJAX
