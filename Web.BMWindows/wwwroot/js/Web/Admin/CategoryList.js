@@ -127,9 +127,9 @@ $(document).ready(function () {
                 }
             },
             { type: 'text', attribute: 'CreatedBy' },
-            { type: 'text', attribute: 'CreatedDate' },
+            { type: 'date', attribute: 'CreatedDate', class: 'text-center' },
             { type: 'text', attribute: 'UpdatedBy' },
-            { type: 'text', attribute: 'UpdatedDate' }
+            { type: 'date', attribute: 'UpdatedDate', class: 'text-center' }
         ]
     });
     
