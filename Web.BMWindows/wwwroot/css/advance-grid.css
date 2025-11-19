@@ -141,6 +141,7 @@
 .advance-table .table {
   width: 100%;
   margin-bottom: 0;
+  height: 110px;
   border-collapse: collapse;
 }
 
@@ -520,3 +521,4 @@
 .advance-table .areas {
   overflow: hidden;
 }
+
