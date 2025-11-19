@@ -16,7 +16,7 @@ namespace Service.BMWindows.Executes.Base
            return await AppItemData(model, option);
         }
 
-        public async Task<QueryResult<AppItemViewModel>> AppItemData(SearchAppItemModel model, OptionResult option)
+        private async Task<QueryResult<AppItemViewModel>> AppItemData(SearchAppItemModel model, OptionResult option)
         {
             if (model == null) model = new SearchAppItemModel();
 

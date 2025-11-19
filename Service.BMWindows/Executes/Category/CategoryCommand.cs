@@ -18,10 +18,15 @@ namespace Service.BMWindows.Executes.Base
             try
             {
                 if (string.IsNullOrWhiteSpace(model.Name))
-                {
                     return new CommandResult<DBContext.BMWindows.Entities.Category>("Tên nhóm không trống");
-                }
 
+                var isAssist = await Context.Categories.AnyAsync(c => c.Name == model.Name);
+                if (isAssist)
+                    return new CommandResult<DBContext.BMWindows.Entities.Category>("Nhóm ứng dụng đã tồn tại");
+
+                if (model.Prioritize <= 0)
+                    return new CommandResult<DBContext.BMWindows.Entities.Category>("Vui lòng chọn thứ tự ưu tiên lớn hơn 0");
+                                
                 // Tạo Category mới
                 var d = new DBContext.BMWindows.Entities.Category
                 {
@@ -44,27 +49,27 @@ namespace Service.BMWindows.Executes.Base
             catch (Exception ex)
             {
                 var innerMsg = ex.InnerException != null ? " | Inner: " + ex.InnerException.Message : "";
-                return new CommandResult<DBContext.BMWindows.Entities.Category>("L?i: " + ex.Message + innerMsg);
+                return new CommandResult<DBContext.BMWindows.Entities.Category>("Lỗi: " + ex.Message + innerMsg);
             }
         }
 
-        /// <summary>
-        /// Cập nhật Category với logic tự động đẩy Prioritize các Category khác
-        /// </summary>
+      
         public async Task<CommandResult<DBContext.BMWindows.Entities.Category>> EditCategory(CategoryEditModel model)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(model.Name))
-                {
                     return new CommandResult<DBContext.BMWindows.Entities.Category>("Tên nhóm không được để trống");
-                }
 
                 var d = await Context.Categories.FirstOrDefaultAsync(x => x.Id == model.Id);
                 if (d == null)
-                {
                     return new CommandResult<DBContext.BMWindows.Entities.Category>("Không tìm thấy nhóm ứng dụng: " + model.Id);
-                }
+                //var isAssist = await Context.Categories.AnyAsync(c => c.Name == model.Name);
+                //if (isAssist)
+                //    return new CommandResult<DBContext.BMWindows.Entities.Category>("Nhóm ứng dụng đã tồn tại");
+
+                if (model.Prioritize <= 0)
+                    return new CommandResult<DBContext.BMWindows.Entities.Category>("Vui lòng chọn thứ tự ưu tiên lớn hơn 0");
 
                 d.Name = model.Name.Trim();
                 d.Prioritize = model.Prioritize;
@@ -82,8 +87,6 @@ namespace Service.BMWindows.Executes.Base
                 return new CommandResult<DBContext.BMWindows.Entities.Category>("Lỗi: " + ex.Message + innerMsg);
             }
         }
-
-
         private string BuildKeyword(DBContext.BMWindows.Entities.Category model)
         {
             return (model.Name?.ToKeyword() ?? "");

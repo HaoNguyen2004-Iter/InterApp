@@ -520,9 +520,8 @@ namespace BMWindows.Controllers
 
             // 1. Tạo thư mục theo ngày giống hệt SaveChunksForUpload
             var dateFolder = $"/upload/{DateTime.Now:yyyy/MM/dd}";
-            var fullDateFolder = FileComponent.DateFolder("/upload", null); // hàm có sẵn của dự án, sẽ tự tạo yyyy/MM/dd
+            var fullDateFolder = FileComponent.DateFolder("/upload", null); 
 
-            // 2. Tạo tên file duy nhất (giữ nguyên kiểu cũ để dễ nhận diện là file tạm)
             var ext = Path.GetExtension(file.FileName);
             var filename = DateTime.Now.ToString("yyyyMMdd_HHmmss_") +
                            StringComponent.Guid(8) +
@@ -536,18 +535,12 @@ namespace BMWindows.Controllers
 
             // 4. Lưu file
             using (var fs = new FileStream(physicalPath, FileMode.Create, FileAccess.Write))
-            {
                 file.CopyTo(fs);
-            }
 
             // 5. (Tuỳ chọn) Nếu là ảnh thì tự động resize luôn như SaveChunksForUpload
             var imageExt = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
             if (imageExt.Contains(ext.ToLower()))
-            {
                 FileComponent.ResizeBySizeConfig(relativePath, "drop", new[] { "880x660", "375x250" });
-                // Nếu muốn tạo thêm thumb thì thêm dòng dưới
-                // FileComponent.ResizeBySizeConfig(relativePath, "zoom", new[] { "200x200" });
-            }
 
             relativePath = "/media" + relativePath;
 

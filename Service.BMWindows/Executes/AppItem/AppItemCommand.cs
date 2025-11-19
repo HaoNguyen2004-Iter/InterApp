@@ -15,21 +15,17 @@ namespace Service.BMWindows.Executes.Base
             try
             {
                 if (string.IsNullOrWhiteSpace(model.Name))
-                {
                     return new CommandResult<DBContext.BMWindows.Entities.AppItem>("Tên ứng dụng không được để trống");
-                }
 
                 if (model.CategoryId <= 0)
-                {
                     return new CommandResult<DBContext.BMWindows.Entities.AppItem>("Vui lòng chọn nhóm ứng dụng");
-                }
 
-                int prioritize = model.Prioritize;
-                if (prioritize <= 0)
-                {
-                    var maxPrioritize = await Context.AppItems.MaxAsync(c => (int?)c.Prioritize);
-                    prioritize = (maxPrioritize ?? 0) + 1;
-                }
+                var isAssist = await Context.AppItems.AnyAsync(c => c.Name == model.Name);
+                if (isAssist)
+                    return new CommandResult<DBContext.BMWindows.Entities.AppItem>("Tên ứng dụng đã tồn tại");
+
+                if (model.Url == null)
+                    return new CommandResult<DBContext.BMWindows.Entities.AppItem>("Url không được để trống"); 
 
                 var item = new DBContext.BMWindows.Entities.AppItem
                 {
@@ -39,12 +35,14 @@ namespace Service.BMWindows.Executes.Base
                     Url = model.Url,
                     Status = model.Status,
                     Keyword = model.Keyword,
-                    Prioritize = prioritize,
+                    Prioritize = model.Prioritize,
                     CreatedDate = DateTime.UtcNow,
                     CreatedBy = Guid.Empty,
                     UpdatedDate = DateTime.UtcNow,
                     UpdatedBy = Guid.Empty
                 };
+
+                item.Keyword = BuildKeyword(item);
 
                 Context.AppItems.Add(item);
                 await Context.SaveChangesAsync();
@@ -63,20 +61,16 @@ namespace Service.BMWindows.Executes.Base
             try
             {
                 if (string.IsNullOrWhiteSpace(model.Name))
-                {
                     return new CommandResult<DBContext.BMWindows.Entities.AppItem>("Tên ứng dụng không được để trống");
-                }
 
                 if (model.CategoryId <= 0)
-                {
                     return new CommandResult<DBContext.BMWindows.Entities.AppItem>("Vui lòng chọn nhóm ứng dụng");
-                }
 
                 var item = await Context.AppItems.FirstOrDefaultAsync(x => x.Id == model.Id);
                 if (item == null)
-                {
                     return new CommandResult<DBContext.BMWindows.Entities.AppItem>("Không tìm thấy ứng dụng: " + model.Id);
-                }
+                if (model.Url == null)
+                    return new CommandResult<DBContext.BMWindows.Entities.AppItem>("Url không được để trống");
 
                 item.CategoryId = model.CategoryId;
                 item.Name = model.Name.Trim();
@@ -97,6 +91,11 @@ namespace Service.BMWindows.Executes.Base
                 var innerMsg = ex.InnerException != null ? " | Inner: " + ex.InnerException.Message : "";
                 return new CommandResult<DBContext.BMWindows.Entities.AppItem>("Lỗi: " + ex.Message + innerMsg);
             }
+        }
+
+        private string BuildKeyword(DBContext.BMWindows.Entities.AppItem model)
+        {
+            return (model.Name?.ToKeyword() ?? "");
         }
     }
 }

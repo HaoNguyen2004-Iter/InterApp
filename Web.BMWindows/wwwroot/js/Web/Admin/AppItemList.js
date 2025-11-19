@@ -1,4 +1,107 @@
 ﻿var table;
+function initIconUpload(rootElement) {
+    function getEl(id) {
+        if (rootElement && rootElement.querySelector) {
+            var el = rootElement.querySelector('#' + id);
+            if (el) return el;
+        }
+        return document.getElementById(id);
+    }
+
+    function setStatus(text, show) {
+        var s = getEl('iconUploadStatus');
+        if (!s) return;
+        s.style.display = show ? 'block' : 'none';
+        s.textContent = text || '';
+    }
+
+    function isUrl(val) {
+        if (!val) return false;
+        return val.indexOf('data:') === 0 || val.indexOf('/') === 0 || val.indexOf('http') === 0;
+    }
+
+    var fileInput = getEl('IconFile');
+    var preview = getEl('iconPreview');
+    var hidden = getEl('Icon');
+    var manual = getEl('IconManual');
+    var btnApply = getEl('btnApplyManualIcon');
+
+    // Apply manual URL button
+    if (btnApply) btnApply.addEventListener('click', function () {
+        var url = (manual.value || '').trim();
+        if (!url) return;
+        if (hidden) hidden.value = url;
+        if (isUrl(url) && preview) preview.src = url;
+    });
+
+    // live preview when typing manual url
+    if (manual) manual.addEventListener('input', function () {
+        var url = (manual.value || '').trim();
+        if (isUrl(url) && preview) preview.src = url;
+    });
+
+    // when submitting the form make sure manual value is copied to hidden
+    (function attachFormSubmit() {
+        var form = preview ? preview.closest('form') : null;
+        if (!form && rootElement) {
+            form = rootElement.querySelector('form');
+        }
+        if (!form) return;
+        form.addEventListener('submit', function () {
+            if (manual && manual.value && manual.value.trim() && hidden) {
+                hidden.value = manual.value.trim();
+            }
+        });
+    })();
+
+    if (!fileInput) return;
+
+    fileInput.addEventListener('change', function (e) {
+        var f = e.target.files && e.target.files[0];
+        if (!f) return;
+
+        // quick client preview
+        try { if (preview) preview.src = URL.createObjectURL(f); } catch (ex) { }
+
+        var fd = new FormData();
+        fd.append('file', f);
+
+        setStatus('Đang tải lên...', true);
+
+        fetch('/apimedia/TempUpload', {
+            method: 'POST',
+            body: fd,
+            credentials: 'same-origin'
+        }).then(function (res) {
+            return res.json();
+        }).then(function (result) {
+            setStatus('', false);
+            var url = '';
+            if (typeof result === 'string' && result.length > 0) {
+                url = result;
+            } else if (result && result.url) {
+                url = result.url;
+            }
+
+            if (url) {
+                if (hidden) hidden.value = url;
+                if (preview) preview.src = url;
+                if (manual) manual.value = url;
+            } else {
+                setStatus('Upload thất bại', true);
+                setTimeout(function () { setStatus('', false); }, 2500);
+            }
+        }).catch(function (err) {
+            console.error(err);
+            setStatus('Lỗi khi upload', true);
+            setTimeout(function () { setStatus('', false); }, 2500);
+        }).finally(function () {
+            try { fileInput.value = ''; } catch (e) { }
+        });
+    });
+}
+/* End icon upload helper */
+
 
 $(document).ready(function () {
     var panel = '#AppItemList_panel';
@@ -18,24 +121,30 @@ $(document).ready(function () {
         paging: { options: [10, 20, 30, 50] },
         loadModalCallback: function (row) {
             var modalId = 'AppItemFormEditModal';
-            
+
+            // Initialize icon upload within the modal (if elements exist)
+            var modalEl = document.getElementById(modalId);
+            if (modalEl) {
+                try { initIconUpload(modalEl); } catch (ex) { console.error('initIconUpload error:', ex); }
+            }
+
             $('#' + modalId + ' .btn-submit').unbind('click').click(function () {
                 var btn = $(this);
                 btn.button('loading');
-                
+
                 var formData = $('#' + modalId + ' form').serialize();
-                
+
                 $.ajax({
                     url: '/AppItem/AppItemEdit',
                     type: 'POST',
                     data: formData,
                     success: function (result) {
                         btn.button('reset');
-                        
+
                         if (result.success) {
                             $('#' + modalId).modal('hide');
                             table.loadData();
-                            
+
                             if (typeof app !== 'undefined' && typeof app.notify === 'function') {
                                 app.notify('success', result.message);
                             }
@@ -99,7 +208,7 @@ $(document).ready(function () {
                     type: 'option',
                     ajax: {
                         url: '/Category/CategoryList',
-                        data: { hasCount: false, limit: 100 }, 
+                        data: { hasCount: false, limit: 100 },
                         dataType: 'json',
                         attr: { id: 'Id', text: 'Name' },
                         success: function (response) {
@@ -114,9 +223,9 @@ $(document).ready(function () {
                 type: 'text', attribute: 'Url',
                 render: function (row) {
                     if (row.Url) {
-                        return '<a href="' + row.Url + '" target="_blank" title="' + row.Url + '">' + 
-                               (row.Url.length > 30 ? row.Url.substring(0, 30) + '...' : row.Url) + 
-                               '</a>';
+                        return '<a href="' + row.Url + '" target="_blank" title="' + row.Url + '">' +
+                            (row.Url.length > 30 ? row.Url.substring(0, 30) + '...' : row.Url) +
+                            '</a>';
                     }
                     return '';
                 }
@@ -206,6 +315,12 @@ function editAppItem(id, callback) {
             model: 'AppItem'
         }
     }, function () {
+        // Initialize icon upload for this modal instance
+        var modalEl = document.getElementById(mid);
+        if (modalEl) {
+            try { initIconUpload(modalEl); } catch (ex) { console.error('initIconUpload error:', ex); }
+        }
+
         $('#' + mid + ' .btn-submit').unbind('click').click(function () {
             var btn = $(this);
             btn.button('loading');
