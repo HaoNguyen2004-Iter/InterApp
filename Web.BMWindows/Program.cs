@@ -55,7 +55,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Category}/{action=Index}");
+    pattern: "{controller=Home}/{action=UserIndex}");
 
 // Map Razor pages if present
 app.MapRazorPages();

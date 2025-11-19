@@ -21,8 +21,8 @@ namespace Web.BMWindows.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpGet]
-        [Route("User/Index")]
+        //[HttpGet]
+        //[Route("User/Index")]
         public async Task<IActionResult> UserIndex(int categoryId)
         {
             // Load all active Categories (Status = 1)

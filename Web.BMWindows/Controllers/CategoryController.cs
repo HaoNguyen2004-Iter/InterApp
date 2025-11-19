@@ -16,7 +16,10 @@ namespace BMWindows.Controllers
         {
             _categoryService = categoryService;
         }
-        
+
+        [HttpGet]
+        [Route("Admin")]
+        [Route("Category/Index")]
         public IActionResult Index()
         {
             return View("~/Views/Web/Admin/Category.cshtml");
@@ -28,6 +31,7 @@ namespace BMWindows.Controllers
             return Json(result);
         }
 
+      
         public async Task<IActionResult> CategoryEdit(int? id)
         {
             CategoryViewModel model;
