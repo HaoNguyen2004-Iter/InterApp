@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using F = System.IO.File;
 
-namespace SGT.Outbound.Backend.Api
+namespace BMWindows.Controllers
 {
     public class SaveChunkModel
     {
@@ -515,24 +515,43 @@ namespace SGT.Outbound.Backend.Api
         [HttpPost]
         public IActionResult TempUpload(IFormFile file)
         {
-            if (file != null && file.Length > 0)
+            if (file == null || file.Length == 0)
+                return Json("");
+
+            // 1. Tạo thư mục theo ngày giống hệt SaveChunksForUpload
+            var dateFolder = $"/upload/{DateTime.Now:yyyy/MM/dd}";
+            var fullDateFolder = FileComponent.DateFolder("/upload", null); // hàm có sẵn của dự án, sẽ tự tạo yyyy/MM/dd
+
+            // 2. Tạo tên file duy nhất (giữ nguyên kiểu cũ để dễ nhận diện là file tạm)
+            var ext = Path.GetExtension(file.FileName);
+            var filename = DateTime.Now.ToString("yyyyMMdd_HHmmss_") +
+                           StringComponent.Guid(8) +
+                           ext.ToLower();
+
+            var relativePath = fullDateFolder + "/" + filename;   // ví dụ: /media/upload/2025/11/19/20251119_143022_A1B2C3D4.jpg
+            var physicalPath = FileComponent.GetFullPath(relativePath);
+
+            // 3. Tạo thư mục nếu chưa có
+            Directory.CreateDirectory(Path.GetDirectoryName(physicalPath)!);
+
+            // 4. Lưu file
+            using (var fs = new FileStream(physicalPath, FileMode.Create, FileAccess.Write))
             {
-                var filename = DateTime.Now.ToString("yyyyMMdd") + "_" +
-                               StringComponent.Guid(8) +
-                               Path.GetExtension(file.FileName);
-
-                var relPath = "/Content/temp_upload/" + filename;
-                var physicalPath = MapPath(relPath);
-                Directory.CreateDirectory(Path.GetDirectoryName(physicalPath)!);
-
-                using (var fs = new FileStream(physicalPath, FileMode.Create, FileAccess.Write))
-                {
-                    file.CopyTo(fs);
-                }
-
-                return Json(relPath);
+                file.CopyTo(fs);
             }
-            return Json("");
+
+            // 5. (Tuỳ chọn) Nếu là ảnh thì tự động resize luôn như SaveChunksForUpload
+            var imageExt = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+            if (imageExt.Contains(ext.ToLower()))
+            {
+                FileComponent.ResizeBySizeConfig(relativePath, "drop", new[] { "880x660", "375x250" });
+                // Nếu muốn tạo thêm thumb thì thêm dòng dưới
+                // FileComponent.ResizeBySizeConfig(relativePath, "zoom", new[] { "200x200" });
+            }
+
+            relativePath = "/media" + relativePath;
+
+            return Json(relativePath);
         }
 
         public void AddFolderInfo(string folder, MediaItem media)

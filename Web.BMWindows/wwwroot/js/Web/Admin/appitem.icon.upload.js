@@ -63,14 +63,11 @@
                 body: fd,
                 credentials: 'same-origin'
             }).then(function (res) {
-                // TempUpload returns JSON string (relPath) or empty string
                 return res.json();
             }).then(function (result) {
                 setStatus('', false);
-                // result may be a string path or empty string
                 if (typeof result === 'string' && result.length > 0) {
                     var url = result;
-                    // set hidden and preview
                     hidden.value = url;
                     preview.src = url;
                     if (manual) manual.value = url;
