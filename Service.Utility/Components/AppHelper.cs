@@ -914,39 +914,39 @@ namespace Service.Utility.Components
                         {
                             html +=
                                 "<li>" +
-                                "<button class=\"btn btn-add bg-primary text-white\"" +
-                                "data-loading-text=\"<i class='icon-spinner10 fa-spin position-left'></i> Thêm mới \">" +
-                                "<i class=\"icon-plus3 position-left\"></i> Thêm mới</button></li>";
+                                "<button class=\"btn btn-add bg-primary text-white\" style=\"display: inline-flex; align-items: center; gap: 8px; font-weight: 600; padding: 10px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);\"" +
+                                "data-loading-text=\"<i class='fa-solid fa-spinner fa-spin'></i> Thêm mới \">" +
+                                "<i class=\"fa-solid fa-plus\"></i> Thêm mới</button></li>";
                         }
                         break;
                     case "edit":
                         {
                             html +=
-                                "<li><button class=\"btn btn-edit btn-default\"" +
-                                "data-loading-text=\"<i class='icon-spinner10 fa-spin position-left'></i> Cập nhật\">" +
-                                "<i class=\"icon-pencil7 position-left text-warning\"></i> Cập nhật</button></li>";
+                                "<li><button class=\"btn btn-edit btn-default\" style=\"display: inline-flex; align-items: center; gap: 8px; font-weight: 600; padding: 10px 20px; border-radius: 8px;\"" +
+                                "data-loading-text=\"<i class='fa-solid fa-spinner fa-spin'></i> Cập nhật\">" +
+                                "<i class=\"fa-solid fa-pen text-warning\"></i> Cập nhật</button></li>";
                         }
                         break;
                     case "delete":
                         {
                             html +=
-                                "<li><button class=\"btn btn-delete btn-default\"" +
-                                "data-loading-text=\"<i class='icon-spinner10 fa-spin position-left'></i> Xóa\">" +
-                                "<i class=\"icon-x position-left text-danger\"></i> Xóa</button></li>";
+                                "<li><button class=\"btn btn-delete btn-default\" style=\"display: inline-flex; align-items: center; gap: 8px; font-weight: 600; padding: 10px 20px; border-radius: 8px;\"" +
+                                "data-loading-text=\"<i class='fa-solid fa-spinner fa-spin'></i> Xóa\">" +
+                                "<i class=\"fa-solid fa-trash text-danger\"></i> Xóa</button></li>";
                         }
                         break;
                     case "reload":
                         {
                             html +=
-                                "<li><button class=\"btn btn-reload btn-default\">" +
-                                "<i class=\"icon-loop3 position-left text-slate-400 position-left\"></i> Tải lại</button></li>";
+                                "<li><button class=\"btn btn-reload btn-default\" style=\"display: inline-flex; align-items: center; gap: 8px; font-weight: 600; padding: 10px 20px; border-radius: 8px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.08);\">" +
+                                "<i class=\"fa-solid fa-arrows-rotate text-slate-600\"></i> Tải lại</button></li>";
                         }
                         break;
                     case "export":
                         {
                             html +=
-                                "<li><button class=\"btn btn-export btn-default\">" +
-                                "<i class=\"icon-file-excel position-left text-success position-left\"></i> Xuất file</button></li>";
+                                "<li><button class=\"btn btn-export btn-default\" style=\"display: inline-flex; align-items: center; gap: 8px; font-weight: 600; padding: 10px 20px; border-radius: 8px;\">" +
+                                "<i class=\"fa-solid fa-file-excel text-success\"></i> Xuất file</button></li>";
                         }
                         break;
                 }

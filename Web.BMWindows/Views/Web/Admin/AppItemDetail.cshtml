@@ -1,116 +1,236 @@
 ﻿@model Service.BMWindows.Executes.AppItem.AppItemViewModel
 
-<form novalidate>
-    
-<input type="hidden" name="Id" value="@Model.Id" />
+<style>
+    :root {
+        --primary-color-form: #3b82f6;
+        --border-color-form: #e2e8f0;
+        --background-light: #fafbfc;
+        --text-primary: #1e293b;
+        --text-color-light: #666;
+    }
 
-<div class="form-group">
-    <label class="control-label">Tên ứng dụng <span class="text-danger">*</span></label>
-    <input type="text" 
-           name="Name" 
-           value="@Model.Name" 
-           class="form-control" 
-           placeholder="Nhập tên ứng dụng" 
-           maxlength="200" 
-           data-validation="required" />
-</div>
+    /* 1. Animation Keyframes (Giữ nguyên) */
+    @@keyframes slideIn {
+            from {
+                    opacity: 0;
+                    transform: translateY(-10px);
 
-<div class="form-group">
-    <label class="control-label">Nhóm ứng dụng <span class="text-danger">*</span></label>
-    <select name="CategoryId" class="form-control" style="padding: 1px 14px; " data-validation="required">
-        <option value="">-- Chọn nhóm --</option>
-        @if (ViewBag.Categories != null)
-        {
-            @foreach (var cat in ViewBag.Categories as IEnumerable<Service.BMWindows.Executes.Category.CategoryViewModel>)
+        }
+
+            to {
+                    opacity: 1;
+                    transform: translateY(0);
+
+        }
+    }
+
+    /* 2. Styling cho Form và các trường */
+    .app-item-form-modal {
+        padding: 8px;
+    }
+
+        /* Style cho form-group */
+        .app-item-form-modal .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Style cho label */
+        .app-item-form-modal .control-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+            /* Style cho Icon trong label */
+            .app-item-form-modal .control-label .fa-solid {
+                color: var(--primary-color-form);
+            }
+
+        /* Input, Select, URL, Prioritize Styling */
+        .app-item-form-modal input[type="text"],
+        .app-item-form-modal input[type="url"],
+        .app-item-form-modal input[type="number"],
+        .app-item-form-modal select {
+            border: 2px solid var(--border-color-form);
+            border-radius: 8px;
+            padding: 0px 14px;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+    /* 3. Icon Upload Section */
+    .icon-upload-wrapper {
+        gap: 16px;
+        flex-direction: column;
+    }
+
+    .icon-preview-box {
+        width: 120px;
+        height: 120px;
+        border: 2px solid var(--border-color-form);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: var(--background-light);
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .icon-preview-img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    /* File Input */
+    .icon-file-input {
+        border: 2px dashed var(--border-color-form);
+        border-radius: 8px;
+        padding: 10px;
+        background: var(--background-light);
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.2s;
+    }
+
+    /* Upload Status */
+    #iconUploadStatus {
+        font-size: 12px;
+        color: var(--primary-color-form);
+        display: none;
+        padding: 6px 12px;
+        background: #eff6ff;
+        border-radius: 6px;
+        margin-top: 8px;
+    }
+
+   
+</style>
+
+<form novalidate class="app-item-form-modal">
+
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div class="form-group" style="animation: slideIn 0.3s ease;">
+        <label class="control-label">
+            <i class="fa-solid fa-cube"></i>
+            Tên ứng dụng <span class="text-danger">*</span>
+        </label>
+        <input type="text"
+                     name="Name"
+                     value="@Model.Name"
+                     class="form-control"  
+                     placeholder="Nhập tên ứng dụng"
+                     maxlength="200"
+                     data-validation="required" />
+    </div>
+
+    <div class="form-group" style="animation: slideIn 0.4s ease;">
+        <label class="control-label">
+            <i class="fa-solid fa-layer-group"></i>
+            Nhóm ứng dụng <span class="text-danger">*</span>
+        </label>
+        <select name="CategoryId" class="form-control" data-validation="required">
+            <option value="">-- Chọn nhóm --</option>
+            @if (ViewBag.Categories != null)
             {
-                @if (Model.CategoryId == cat.Id)
+                @foreach (var cat in ViewBag.Categories as IEnumerable<Service.BMWindows.Executes.Category.CategoryViewModel>)
                 {
-                    <option value="@cat.Id" selected="selected">@cat.Name</option>
-                }
-                else
-                {
-                    <option value="@cat.Id">@cat.Name</option>
+                    @if (Model.CategoryId == cat.Id)
+                    {
+                        <option value="@cat.Id" selected="selected">@cat.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@cat.Id">@cat.Name</option>
+                    }
                 }
             }
-        }
-    </select>
-</div>
+        </select>
+    </div>
 
-<div class="form-group">
-    <label class="control-label">URL</label>
-    <input type="url" 
-           name="Url" 
-           value="@Model.Url" 
-           class="form-control" 
-           placeholder="https://example.com" 
-           maxlength="500" />
-</div>
+    <div class="form-group" style="animation: slideIn 0.5s ease;">
+        <label class="control-label">
+            <i class="fa-solid fa-link"></i>
+            URL
+        </label>
+        <input type="url"  
+                     name="Url"
+                     value="@Model.Url"  
+                     class="form-control"
+                     placeholder="https://example.com"
+                     maxlength="500" />
+    </div>
 
-    <div class="form-group">
-        <label class="control-label">Icon</label>
+    <div class="form-group" style="animation: slideIn 0.6s ease;">
+        <label class="control-label">
+            <i class="fa-solid fa-image"></i>
+            Icon
+        </label>
 
-        <div class="d-flex align-items-start mb-2">
-            <div style="width:120px; height:80px; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#fff; margin-right:10px;">
-                <img id="iconPreview" src="@(string.IsNullOrEmpty(Model.Icon) ? Url.Content("~/images/icons/settings.png") : Model.Icon)" alt="Icon preview" style="max-width:100%; max-height:100%;" />
+        <div class="d-flex align-items-start mb-2 icon-upload-wrapper">
+            <div class="icon-preview-box">
+                <img id="iconPreview" src="@(string.IsNullOrEmpty(Model.Icon) ? Url.Content("~/images/icons/settings.png") : Model.Icon)" alt="Icon preview" class="icon-preview-img" />
             </div>
             <div style="flex:1">
                 <input type="hidden" name="Icon" id="Icon" value="@Model.Icon" />
                 <div class="mb-2">
-                    <input type="file" id="IconFile" accept="image/*" class="form-control-file" />
+                    <input type="file" id="IconFile" accept="image/*" class="form-control-file icon-file-input" />
                 </div>
-                <div id="iconUploadStatus" style="font-size:12px;color:#666;display:none;">Đang tải lên...</div>
-                <div style="font-size:12px;color:#666; margin-top:8px;">Hoặc nhập đường dẫn ảnh trực tiếp:</div>
-                <input type="text" name="IconManual" id="IconManual" value="@Model.Icon" class="form-control mt-1" placeholder="/media/..." />
-                <button type="button" id="btnApplyManualIcon" class="btn btn-sm btn-light mt-2">Áp dụng đường dẫn</button>
+                <div id="iconUploadStatus">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Đang tải lên...
+                </div>
+
             </div>
         </div>
-
     </div>
 
-<div class="form-group">
-    <label class="control-label">Từ khóa</label>
-    <input type="text" 
-           name="Keyword" 
-           value="@Model.Keyword" 
-           class="form-control" 
-           placeholder="Nhập từ khóa để tìm kiếm" 
-           maxlength="500" />
-</div>
 
-<div class="form-group">
-    <label class="control-label">Thứ tự ưu tiên</label>
-    <input type="number" 
-           name="Prioritize" 
-           value="@Model.Prioritize" 
-           class="form-control" 
-           placeholder="Nhập số thứ tự ưu tiên"
-           min="0"
-           step="1" />
-</div>
 
-<div class="form-group">
-    <label class="control-label">Trạng thái</label>
-    <select name="Status" class="form-control" style="padding: 1px 12px">
-        @if (Model.Status == 0)
-        {
-            <option value="0" selected="selected">Dừng</option>
-        }
-        else
-        {
-            <option value="0">Dừng</option>
-        }
-        
-        @if (Model.Status == 1)
-        {
-            <option value="1" selected="selected">Hoạt động</option>
-        }
-        else
-        {
-            <option value="1">Hoạt động</option>
-        }
-        
-    </select>
-</div>
+    <div class="form-group" style="animation: slideIn 0.8s ease;">
+        <label class="control-label">
+            <i class="fa-solid fa-arrow-up-1-9"></i>
+            Thứ tự ưu tiên
+        </label>
+        <input type="number"  
+                     name="Prioritize"
+                     value="@Model.Prioritize"  
+                     class="form-control"
+                     placeholder="Nhập số thứ tự ưu tiên"
+                     min="1"
+                     step="1" />
+    </div>
+
+    <div class="form-group" style="animation: slideIn 0.9s ease;">
+        <label class="control-label">
+            <i class="fa-solid fa-toggle-on"></i>
+            Trạng thái
+        </label>
+        <select name="Status" class="form-control">
+            @if (Model.Status == 0)
+            {
+                <option value="0" selected="selected">⚫ Dừng</option>
+            }
+            else
+            {
+                <option value="0">⚫ Dừng</option>
+            }
+
+            @if (Model.Status == 1)
+            {
+                <option value="1" selected="selected">✅ Hoạt động</option>
+            }
+            else
+            {
+                <option value="1">✅ Hoạt động</option>
+            }
+
+        </select>
+    </div>
 
 </form>
 

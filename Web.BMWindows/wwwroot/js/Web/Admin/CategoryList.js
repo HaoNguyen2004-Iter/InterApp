@@ -65,7 +65,7 @@ $(document).ready(function () {
         },
 
         params: { search: { hasCount: true, limit: 20 } },
-        head: { height: 60, groups: [50, 220, 50, 110, 200, 200, 200, 200] },
+        head: { height: 60, groups: [50, 220, 100, 200, 200, 200, 200, 200] },
         skipCols: 0,
         cols: {
             left: [[]],
@@ -92,10 +92,11 @@ $(document).ready(function () {
                     return '';
                 }
             },
-            { type: 'text', attribute: 'Prioritize', style: 'text-align: center', },
+            { type: 'text', attribute: 'Prioritize', style: 'text-align: center;' },
             { 
                 type: 'text', 
                 attribute: 'Status',
+                style: 'text-align: center;', 
                 
                 render: function (row) {
                    
@@ -120,7 +121,7 @@ $(document).ready(function () {
                     lst: function () {
                         return [
                             { id: '1', text: 'Hoạt động' },
-                            { id: '2', text: 'Dừng' }
+                            { id: '0', text: 'Dừng' }
                         ];
                     }
                 }
@@ -152,7 +153,8 @@ function editCategory(id, callback) {
             title: modalTitle,
             width: '800px',
             id: mid,
-            model: 'Category'
+            model: 'Category',
+            icon: '<i class="fa-solid fa-folder-tree"></i>' 
         }
     }, function () {
         // Modal đã được load, bind sự kiện nút Submit
