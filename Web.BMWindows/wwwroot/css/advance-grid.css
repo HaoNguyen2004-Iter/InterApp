@@ -146,30 +146,20 @@
 
 /* Table Header */
 .advance-table .table thead th {
-  background: var(--advance-table-header-bg);
-  color: #475569;
-  font-weight: 700;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 14px 16px;
-  border: 1px solid var(--advance-table-border) !important;
-  white-space: nowrap;
-  text-align: left;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+
 }
 
 
-.advance-table .area-tl table thead th,
-.advance-table .area-tr table thead th {
-  border: 1px solid var(--advance-table-border) !important;
-  border-left: 1px solid var(--advance-table-border) !important;
-  border-right: 1px solid var(--advance-table-border) !important;
-  border-top: 1px solid var(--advance-table-border) !important;
-  border-bottom: 2px solid #cbd5e1 !important; 
-}
+    .advance-table .area-tl table thead th,
+    .advance-table .area-tr table thead th {
+        font-size: 16px;
+        font-weight: 900;
+        border: 1px solid var(--advance-table-border) !important;
+        border-left: 1px solid var(--advance-table-border) !important;
+        border-right: 1px solid var(--advance-table-border) !important;
+        border-top: 1px solid var(--advance-table-border) !important;
+        border-bottom: 2px solid #cbd5e1 !important;
+    }
 
 .advance-table .table thead th:first-child {
   border-top-left-radius: 8px;

@@ -173,7 +173,7 @@ $(document).ready(function () {
         cols: {
             left: [[]],
             right: [[
-                { title: 'STT', style: "height:60px" },
+                { title: 'STT'},
                 { title: 'Tên ứng dụng' },
                 { title: 'Nhóm' },
                 { title: 'URL' },
@@ -231,7 +231,7 @@ $(document).ready(function () {
                 }
             },
             {
-                type: 'text', attribute: 'Icon',
+                type: 'text', attribute: 'Icon', class: 'text-center',
                 render: function (row) {
                     var icon = row.Icon;
                     if (!icon) return '';
@@ -271,9 +271,9 @@ $(document).ready(function () {
                 }
             },
             { type: 'text', attribute: 'CreatedBy' },
-            { type: 'text', attribute: 'CreatedDate' },
+            { type: 'date', attribute: 'CreatedDate', class: 'text-center' },
             { type: 'text', attribute: 'UpdatedBy' },
-            { type: 'text', attribute: 'UpdatedDate' }
+            { type: 'date', attribute: 'UpdatedDate', class: 'text-center' }
         ]
     });
 
