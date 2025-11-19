@@ -235,21 +235,10 @@ $(document).ready(function () {
                 render: function (row) {
                     var icon = row.Icon;
                     if (!icon) return '';
-
-                    // detect FontAwesome / class icon
-                    var isFa = (icon.indexOf('fa-') >= 0) || (icon.indexOf('fas') === 0) || (icon.indexOf('fab') === 0) || (icon.indexOf('fal') === 0) || (icon.indexOf('far') === 0);
-
-                    // detect URL / data URI / absolute path
-                    var isUrl = (typeof icon === 'string') && (icon.indexOf('data:') === 0 || icon.indexOf('/') === 0 || icon.indexOf('http') === 0);
-
-                    if (isFa) {
-                        return '<i class="' + icon + '" style="font-size:18px;margin-right:6px;"></i> ' + icon;
-                    } else if (isUrl) {
+                    if (typeof icon === 'string' && (icon.indexOf('data:') === 0 || icon.indexOf('/') === 0 || icon.indexOf('http') === 0)) {
                         return '<img src="' + icon + '" style="height:28px;max-width:120px;object-fit:contain;border:1px solid #eee;padding:2px;" />';
-                    } else {
-                        // fallback: plain text or class
-                        return '<span>' + icon + '</span>';
                     }
+                    return '';
                 }
             },
             { type: 'text', attribute: 'Prioritize', style: 'text-align: center' },
