@@ -10,9 +10,7 @@ builder.Services
     .AddControllersWithViews()
     .AddJsonOptions(opts =>
     {
-        // Keep server property names as declared (PascalCase) instead of forcing camelCase
         opts.JsonSerializerOptions.PropertyNamingPolicy = null;
-        // Allow case-insensitive reads from incoming JSON
         opts.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
     });
 
