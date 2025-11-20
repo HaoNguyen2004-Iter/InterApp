@@ -180,9 +180,7 @@ $(document).ready(function () {
                 { title: 'Icon' },
                 { title: 'Ưu tiên' },
                 { title: 'Trạng thái' },
-                { title: 'Người tạo' },
                 { title: 'Ngày tạo' },
-                { title: 'Người sửa' },
                 { title: 'Ngày sửa' }
             ]]
         },
@@ -270,9 +268,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            { type: 'text', attribute: 'CreatedBy' },
             { type: 'date', attribute: 'CreatedDate', class: 'text-center' },
-            { type: 'text', attribute: 'UpdatedBy' },
             { type: 'date', attribute: 'UpdatedDate', class: 'text-center' }
         ]
     });
