@@ -1,154 +1,154 @@
 ﻿@charset "UTF-8";
 
 :root {
-  /* Advance Table Variables */
-  --advance-table-header-bg: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  --advance-table-row-hover: #f8fafc;
-  --advance-table-border: #e2e8f0;
-  --advance-table-primary: #3b82f6;
-  --advance-table-text: #1e293b;
-  --advance-table-text-muted: #64748b;
+    /* Advance Table Variables */
+    --advance-table-header-bg: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    --advance-table-row-hover: #f8fafc;
+    --advance-table-border: #e2e8f0;
+    --advance-table-primary: #3b82f6;
+    --advance-table-text: #1e293b;
+    --advance-table-text-muted: #64748b;
 }
 
 /* Container */
 .advance-table {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  position: relative;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
 }
 
-.advance-table .main-content {
-  position: relative;
-  background: white;
-}
+    .advance-table .main-content {
+        padding: 0;
+        position: relative;
+        background: white;
+    }
 
-.advance-table .areas {
-  position: relative;
-  background: white;
-}
+    .advance-table .areas {
+        position: relative;
+        background: white;
+    }
 
-/* ========================================
+    /* ========================================
    AREA CONTAINERS
    ======================================== */
 
-.advance-table .area {
-  position: absolute;
-  overflow: hidden;
-}
+    .advance-table .area {
+        position: absolute;
+        overflow: hidden;
+    }
 
-.advance-table .area > div {
-  overflow: auto;
-  background: white;
-}
+        .advance-table .area > div {
+            overflow: auto;
+            background: white;
+        }
 
-/* Custom Scrollbar */
-.advance-table .area > div::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
+            /* Custom Scrollbar */
+            .advance-table .area > div::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
 
-.advance-table .area > div::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 4px;
-}
+            .advance-table .area > div::-webkit-scrollbar-track {
+                background: #f1f5f9;
+                border-radius: 4px;
+            }
 
-.advance-table .area > div::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #cbd5e1, #94a3b8);
-  border-radius: 4px;
-  transition: all 0.2s;
-}
+            .advance-table .area > div::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #cbd5e1, #94a3b8);
+                border-radius: 4px;
+                transition: all 0.2s;
+            }
 
-.advance-table .area > div::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #94a3b8, #64748b);
-}
+                .advance-table .area > div::-webkit-scrollbar-thumb:hover {
+                    background: linear-gradient(135deg, #94a3b8, #64748b);
+                }
 
-/* Area Top Left - Header Fixed */
-.advance-table .area-tl {
-  top: 0;
-  left: 0;
-  z-index: 4;
-  border-right: 1px solid var(--advance-table-border);
-  border-bottom: 2px solid #cbd5e1;
-  background: var(--advance-table-header-bg);
-}
+    /* Area Top Left - Header Fixed */
+    .advance-table .area-tl {
+        top: 0;
+        left: 0;
+        z-index: 4;
+        border-right: 1px solid var(--advance-table-border);
+        border-bottom: 2px solid #cbd5e1;
+        background: var(--advance-table-header-bg);
+    }
 
-/* Area Top Right - Header Scrollable */
-.advance-table .area-tr {
-  top: 0;
-  right: 0;
-  z-index: 3;
-  height: auto !important;
-  border-bottom: 2px solid #cbd5e1;
-  background: var(--advance-table-header-bg);
-}
+    /* Area Top Right - Header Scrollable */
+    .advance-table .area-tr {
+        top: 0;
+        right: 0;
+        z-index: 3;
+        height: auto !important;
+        border-bottom: 2px solid #cbd5e1;
+        background: var(--advance-table-header-bg);
+    }
 
-/* Area Bottom Left - Fixed Columns */
-.advance-table .area-bl {
-  bottom: 0;
-  left: 0;
-  z-index: 2;
-  border-right: 1px solid var(--advance-table-border);
-  background: white;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
-}
+    /* Area Bottom Left - Fixed Columns */
+    .advance-table .area-bl {
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        border-right: 1px solid var(--advance-table-border);
+        background: white;
+        box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+    }
 
-/* ⭐ ẨN area-bl khi không có cột cố định (skipCols = 0) */
-.advance-table .area-bl:empty,
-.advance-table .area-bl[style*="width: 0"],
-.advance-table .area-bl[style*="width:0"],
-.advance-table .area-bl[style*="width: 1px"],
-.advance-table .area-bl[style*="width:1px"],
-.advance-table .area-bl[style*="width: 18px"],
-.advance-table .area-bl[style*="width:18px"] {
-  display: none !important;
-}
+        /* ⭐ ẨN area-bl khi không có cột cố định (skipCols = 0) */
+        .advance-table .area-bl:empty,
+        .advance-table .area-bl[style*="width: 0"],
+        .advance-table .area-bl[style*="width:0"],
+        .advance-table .area-bl[style*="width: 1px"],
+        .advance-table .area-bl[style*="width:1px"],
+        .advance-table .area-bl[style*="width: 18px"],
+        .advance-table .area-bl[style*="width:18px"] {
+            display: none !important;
+        }
 
-/* ⭐ ẨN area-tl khi không có header cố định */
-.advance-table .area-tl:empty,
-.advance-table .area-tl[style*="width: 0"],
-.advance-table .area-tl[style*="width:0"],
-.advance-table .area-tl[style*="width: 1px"],
-.advance-table .area-tl[style*="width:1px"] {
-  display: none !important;
-}
+    /* ⭐ ẨN area-tl khi không có header cố định */
+    .advance-table .area-tl:empty,
+    .advance-table .area-tl[style*="width: 0"],
+    .advance-table .area-tl[style*="width:0"],
+    .advance-table .area-tl[style*="width: 1px"],
+    .advance-table .area-tl[style*="width:1px"] {
+        display: none !important;
+    }
 
-/* ⭐ Khi area-bl bị ẩn, area-br phải mở rộng full width */
-.advance-table .areas:not(.has-left) .area-br,
-.advance-table .areas .area-br:only-of-type {
-  left: 0 !important;
-  right: 0 !important;
-}
+    /* ⭐ Khi area-bl bị ẩn, area-br phải mở rộng full width */
+    .advance-table .areas:not(.has-left) .area-br,
+    .advance-table .areas .area-br:only-of-type {
+        left: 0 !important;
+        right: 0 !important;
+    }
 
-.advance-table .areas:not(.has-left) .area-tr {
-  left: 0 !important;
-  right: 0 !important;
-}
+    .advance-table .areas:not(.has-left) .area-tr {
+        left: 0 !important;
+        right: 0 !important;
+    }
 
-/* Area Bottom Right - Main Data */
-.advance-table .area-br {
-  bottom: 0;
-  right: 0;
-  z-index: 1;
-  background: white;
-}
+    /* Area Bottom Right - Main Data */
+    .advance-table .area-br {
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        background: white;
+    }
 
-/* ========================================
+    /* ========================================
    TABLE 
    ======================================== */
 
-.advance-table .table {
-  width: 100%;
-  margin-bottom: 0;
-  height: 110px;
-  border-collapse: collapse;
-}
+    .advance-table .table {
+        width: 100%;
+        margin-bottom: 0;
+        height: 110px;
+        border-collapse: collapse;
+    }
 
-/* Table Header */
-.advance-table .table thead th {
-
-}
+        /* Table Header */
+        .advance-table .table thead th {
+        }
 
 
     .advance-table .area-tl table thead th,
@@ -162,264 +162,269 @@
         border-bottom: 2px solid #cbd5e1 !important;
     }
 
-.advance-table .table thead th:first-child {
-  border-top-left-radius: 8px;
-}
+    .advance-table .table thead th:first-child {
+        border-top-left-radius: 8px;
+    }
 
-.advance-table .table thead th:last-child {
-  border-top-right-radius: 8px;
-}
+    .advance-table .table thead th:last-child {
+        border-top-right-radius: 8px;
+    }
 
-/* Table Body */
-.advance-table .table tbody td {
-  padding: 12px 16px;
-  border: 1px solid var(--advance-table-border);
-  color: var(--advance-table-text);
-  font-size: 14px;
-  vertical-align: middle;
-  background: white;
-  transition: all 0.2s;
-}
+    /* Table Body */
+    .advance-table .table tbody td {
+        padding: 12px 16px;
+        border: 1px solid var(--advance-table-border);
+        color: var(--advance-table-text);
+        font-size: 14px;
+        vertical-align: middle;
+        background: white;
+        transition: all 0.2s;
+    }
 
-/* Row Hover Effect */
-.advance-table .table tbody tr:hover td {
-  background: linear-gradient(90deg, var(--advance-table-row-hover) 0%, #ffffff 100%) !important;
-}
+    /* Row Hover Effect */
+    .advance-table .table tbody tr:hover td {
+        background: linear-gradient(90deg, var(--advance-table-row-hover) 0%, #ffffff 100%) !important;
+    }
 
-.advance-table .table tbody tr.hover td {
-  background: var(--advance-table-row-hover) !important;
-}
+    .advance-table .table tbody tr.hover td {
+        background: var(--advance-table-row-hover) !important;
+    }
 
-/* ⭐ Active state - Màu xanh đậm  */
-.advance-table .table tbody tr.active td {
-  background: #2563eb !important; 
-  border-color: #93c5fd !important; 
-}
+    /* ⭐ Active state - Màu xanh đậm  */
+    .advance-table .table tbody tr.active td {
+        background: #2563eb !important;
+        border-color: #93c5fd !important;
+    }
 
 
-.advance-table .table tbody tr.active:hover td {
-  background: #2563eb !important;
-  border-color: #93c5fd !important; 
-}
+    .advance-table .table tbody tr.active:hover td {
+        background: #2563eb !important;
+        border-color: #93c5fd !important;
+    }
 
-/* ========================================
+    /* ========================================
    CHECKBOX STYLING
    ======================================== */
 
-.advance-table .checkbox {
-  margin: 0;
-  display: inline-block;
-}
+    .advance-table .checkbox {
+        margin: 0;
+        display: inline-block;
+    }
 
-.advance-table .first-col {
-  width: 40px;
-  text-align: center;
-  padding: 8px !important;
-}
+    .advance-table .first-col {
+        width: 40px;
+        text-align: center;
+        padding: 8px !important;
+    }
 
-/* ========================================
+    /* ========================================
    BADGES & STATUS
    ======================================== */
 
-.advance-table .badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 12px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+    .advance-table .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-.advance-table .badge-success {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-}
+    .advance-table .badge-success {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+    }
 
-.advance-table .badge-warning {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  color: #78350f;
-}
+    .advance-table .badge-warning {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: #78350f;
+    }
 
-.advance-table .badge-danger {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  color: white;
-}
+    .advance-table .badge-danger {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+    }
 
-.advance-table .badge-secondary {
-  background: linear-gradient(135deg, #64748b, #475569);
-  color: white;
-}
+    .advance-table .badge-secondary {
+        background: linear-gradient(135deg, #64748b, #475569);
+        color: white;
+    }
 
-/* ========================================
+    /* ========================================
    LINKS & ACTIONS
    ======================================== */
 
-.advance-table .table a {
-  color: var(--advance-table-primary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s;
-}
+    .advance-table .table a {
+        color: var(--advance-table-primary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
 
-.advance-table .table a:hover {
-  color: #2563eb;
-  text-decoration: underline;
-}
+        .advance-table .table a:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
 
-/* ========================================
+    /* ========================================
    FILTER ROW
    ======================================== */
 
-.advance-table .tr-filter td {
-  padding: 10px 12px !important;
-  background: #fafbfc !important;
-  border-top: 2px solid var(--advance-table-border) !important;
-}
+    .advance-table .tr-filter td {
+        padding: 10px 12px !important;
+        background: #fafbfc !important;
+        border-top: 2px solid var(--advance-table-border) !important;
+    }
 
-.advance-table .tr-filter input,
-.advance-table .tr-filter select {
-  height: 34px;
-  font-size: 13px;
-  border: 1px solid var(--advance-table-border);
-  border-radius: 6px;
-  padding: 0 12px;
-  width: 100%;
-  transition: all 0.2s;
-  background: white;
-}
+    .advance-table .tr-filter input,
+    .advance-table .tr-filter select {
+        height: 34px;
+        font-size: 13px;
+        border: 1px solid var(--advance-table-border);
+        border-radius: 6px;
+        padding: 0 12px;
+        width: 100%;
+        transition: all 0.2s;
+        background: white;
+    }
 
-.advance-table .tr-filter input:focus,
-.advance-table .tr-filter select:focus {
-  outline: none;
-  border-color: var(--advance-table-primary);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  background: white;
-}
+        .advance-table .tr-filter input:focus,
+        .advance-table .tr-filter select:focus {
+            outline: none;
+            border-color: var(--advance-table-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: white;
+        }
 
-/* ========================================
+    /* ========================================
    FOOTER AREA
    ======================================== */
 
-.advance-table .area-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  border-top: 2px solid var(--advance-table-border);
-  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-}
+    .advance-table .area-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-top: 2px solid var(--advance-table-border);
+        background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    }
 
-.advance-table .area-footer .total-row {
-  font-size: 14px;
-  color: var(--advance-table-text-muted);
-  font-weight: 500;
-}
+        .advance-table .area-footer .total-row {
+            font-size: 14px;
+            color: var(--advance-table-text-muted);
+            font-weight: 500;
+        }
 
-.advance-table .area-footer .total-row .text-bold {
-  color: var(--advance-table-text);
-  font-weight: 700;
-  font-size: 16px;
-}
+            .advance-table .area-footer .total-row .text-bold {
+                color: var(--advance-table-text);
+                font-weight: 700;
+                font-size: 16px;
+            }
 
-/* ========================================
+    /* ========================================
    PAGINATION
    ======================================== */
 
-.advance-table .pagination {
-  margin: 0;
-  display: flex;
-  gap: 4px;
-  list-style: none;
-  padding: 0;
-}
+    .advance-table .pagination {
+        margin: 0;
+        display: flex;
+        gap: 4px;
+        list-style: none;
+        padding: 0;
+    }
 
-.advance-table .pagination li {
-  margin: 0;
-}
+        .advance-table .pagination li {
+            margin: 0;
+        }
 
-.advance-table .pagination li a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 12px;
-  background: white;
-  border: 1px solid var(--advance-table-border);
-  border-radius: 8px;
-  color: var(--advance-table-text-muted);
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.2s;
-}
+            .advance-table .pagination li a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 36px;
+                height: 36px;
+                padding: 0 12px;
+                background: white;
+                border: 1px solid var(--advance-table-border);
+                border-radius: 8px;
+                color: var(--advance-table-text-muted);
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.2s;
+            }
 
-.advance-table .pagination li a:hover {
-  background: #f8fafc;
-  border-color: var(--advance-table-primary);
-  color: var(--advance-table-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
-}
+                .advance-table .pagination li a:hover {
+                    background: #f8fafc;
+                    border-color: var(--advance-table-primary);
+                    color: var(--advance-table-primary);
+                    transform: translateY(-1px);
+                    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+                }
 
-.advance-table .pagination li.active a {
-  background: linear-gradient(135deg, var(--advance-table-primary), #2563eb);
-  color: white;
-  border-color: var(--advance-table-primary);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-}
+            .advance-table .pagination li.active a {
+                background: linear-gradient(135deg, var(--advance-table-primary), #2563eb);
+                color: white;
+                border-color: var(--advance-table-primary);
+                box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            }
 
-/* ========================================
+    /* ========================================
    LOADING & EMPTY STATE
    ======================================== */
 
-/* Default Loading - MINIMAL (chỉ có spinner) */
-.advance-table .loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  background: transparent !important;
-  padding: 0 !important;
-  border-radius: 0;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
+    /* Default Loading - MINIMAL (chỉ có spinner) */
+    .advance-table .loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        background: transparent !important;
+        padding: 0 !important;
+        border-radius: 0;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
 
-/* Style cho spinner icon */
-.advance-table .loading i {
-  font-size: 32px;
-  color: var(--advance-table-primary);
-  animation: spin 1s linear infinite;
-  display: block;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
-}
+        /* Style cho spinner icon */
+        .advance-table .loading i {
+            font-size: 32px;
+            color: var(--advance-table-primary);
+            animation: spin 1s linear infinite;
+            display: block;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+        }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .advance-table .empty-message {
-  display: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #94a3b8;
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-  z-index: 100;
-  padding: 32px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    z-index: 100;
+    padding: 32px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 /* ========================================
@@ -427,64 +432,64 @@
    ======================================== */
 
 .advance-table .dropdown-menu {
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  padding: 8px;
-  min-width: 180px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    min-width: 180px;
 }
 
-.advance-table .dropdown-menu li a {
-  padding: 10px 14px;
-  border-radius: 6px;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+    .advance-table .dropdown-menu li a {
+        padding: 10px 14px;
+        border-radius: 6px;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 
-.advance-table .dropdown-menu li a:hover {
-  background: #f8fafc;
-  color: var(--advance-table-primary);
-}
+        .advance-table .dropdown-menu li a:hover {
+            background: #f8fafc;
+            color: var(--advance-table-primary);
+        }
 
 /* ========================================
    RESPONSIVE DESIGN
    ======================================== */
 
 @media (max-width: 1024px) {
-  .advance-table .table {
-    font-size: 13px;
-  }
-  
-  .advance-table .table thead th,
-  .advance-table .table tbody td {
-    padding: 10px 12px;
-  }
+    .advance-table .table {
+        font-size: 13px;
+    }
+
+        .advance-table .table thead th,
+        .advance-table .table tbody td {
+            padding: 10px 12px;
+        }
 }
 
 @media (max-width: 768px) {
-  .advance-table .table {
-    font-size: 12px;
-  }
-  
-  .advance-table .table thead th,
-  .advance-table .table tbody td {
-    padding: 8px 10px;
-  }
-  
-  .advance-table .area-footer {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  
-  .advance-table .pagination li a {
-    min-width: 32px;
-    height: 32px;
-    padding: 0 8px;
-    font-size: 13px;
-  }
+    .advance-table .table {
+        font-size: 12px;
+    }
+
+        .advance-table .table thead th,
+        .advance-table .table tbody td {
+            padding: 8px 10px;
+        }
+
+    .advance-table .area-footer {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .advance-table .pagination li a {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        font-size: 13px;
+    }
 }
 
 /* ========================================
@@ -496,29 +501,28 @@
 .advance-table .buffer-bl[style*="width:0"],
 .advance-table .buffer-bl[style*="width: 1px"],
 .advance-table .buffer-bl[style*="width:1px"] {
-  display: none !important;
+    display: none !important;
 }
 
 /*  table width khi không có left columns */
 .advance-table .area-br > div > table[style*="width:0"],
 .advance-table .area-br > div > table[style*="width: 0"] {
-  width: 100% !important;
+    width: 100% !important;
 }
 
 /*  empty tbody */
 .advance-table .area-bl tbody:empty {
-  display: none;
+    display: none;
 }
 
 
 
 /* Smooth transition khi thay đổi layout */
 .advance-table .area {
-  transition: left 0.2s ease, width 0.2s ease;
+    transition: left 0.2s ease, width 0.2s ease;
 }
 
 /* Fix overflow issues */
 .advance-table .areas {
-  overflow: hidden;
+    overflow: hidden;
 }
-
