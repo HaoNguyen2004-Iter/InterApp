@@ -2,25 +2,33 @@
 using Microsoft.EntityFrameworkCore;
 using Service.BMWindows.Executes.Category;
 using Service.BMWindows.Executes.Base;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MVC + Razor (add RazorPages to register JSON options for pages if you use them)
 builder.Services
     .AddControllersWithViews()
-    .AddJsonOptions(opts =>
+    .AddNewtonsoftJson(opts =>
     {
-        opts.JsonSerializerOptions.PropertyNamingPolicy = null;
-        opts.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        opts.SerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+        opts.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+        opts.SerializerSettings.ContractResolver = new DefaultContractResolver
+        {
+            NamingStrategy = null
+        };
     });
 
-// If you use Razor Pages elsewhere, register and apply same JSON options
 builder.Services
     .AddRazorPages()
-    .AddJsonOptions(opts =>
+    .AddNewtonsoftJson(opts =>
     {
-        opts.JsonSerializerOptions.PropertyNamingPolicy = null;
-        opts.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        opts.SerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+        opts.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+        opts.SerializerSettings.ContractResolver = new DefaultContractResolver
+        {
+            NamingStrategy = null
+        };
     });
 
 // DbContext SQL Server

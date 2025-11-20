@@ -124,8 +124,8 @@ $(document).ready(function () {
                     }
                 }
             },
-            { type: 'date', attribute: 'CreatedDate', class: 'text-center' },
-            { type: 'date', attribute: 'UpdatedDate', class: 'text-center' }
+            { type: 'datetime', attribute: 'CreatedDate'},
+            { type: 'datetime', attribute: 'UpdatedDate'}
         ]
     });
     
