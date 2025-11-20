@@ -168,7 +168,7 @@ $(document).ready(function () {
             });
         },
         params: { search: { hasCount: true, limit: 20 } },
-        head: { height: 60, groups: [50, 200, 150, 200, 80, 100, 200, 200, 200, 200, 200] },
+        head: { height: 60, groups: [50, 200, 150, 200, 80, 50, 200, 130, 130] },
         skipCols: 0,
         cols: {
             left: [[]],

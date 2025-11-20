@@ -65,7 +65,7 @@ $(document).ready(function () {
         },
 
         params: { search: { hasCount: true, limit: 20 } },
-        head: { height: 60, groups: [50, 220, 100, 200, 200, 200, 200, 200] },
+        head: { height: 60, groups: [50, 220, 50, 150, 130,130] },
         skipCols: 0,
         cols: {
             left: [[]],
