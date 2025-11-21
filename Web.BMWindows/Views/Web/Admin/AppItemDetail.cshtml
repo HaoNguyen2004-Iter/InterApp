@@ -11,16 +11,14 @@
 
     /* 1. Animation Keyframes (Giữ nguyên) */
     @@keyframes slideIn {
-            from {
-                    opacity: 0;
-                    transform: translateY(-10px);
-
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
         }
 
-            to {
-                    opacity: 1;
-                    transform: translateY(0);
-
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 
@@ -108,7 +106,81 @@
         margin-top: 8px;
     }
 
-   
+    /* Icon URL Display */
+    #iconUrlDisplay {
+        font-size: 11px;
+        color: #64748b;
+        background: #f8fafc;
+        border: 1px solid var(--border-color-form);
+        border-radius: 6px;
+        margin-top: 8px;
+        word-break: break-all;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+        #iconUrlDisplay i {
+            color: var(--primary-color-form);
+            font-size: 12px;
+        }
+
+        #iconUrlDisplay .url-text {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    .app-item-form-modal .input-group.mb-2 .btn,
+    #AppItemForm .modal-body .input-group.mb-2 .btn {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px; /* adjust as needed */
+        font-weight: 600; /* adjust as needed */
+        letter-spacing: 0.2px;
+    }
+
+    /* Ensure the text input and the button in the input-group have identical heights and alignment */
+    .app-item-form-modal .input-group.mb-2,
+    .app-item-form-modal .input-group.mb-2 .form-control,
+    .app-item-form-modal .input-group.mb-2 .input-group-append,
+    .app-item-form-modal .input-group.mb-2 .btn {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+    }
+
+        /* Set a fixed height that matches the visual tone of other controls (includes 2px borders) */
+        .app-item-form-modal .input-group.mb-2 .form-control,
+        .app-item-form-modal .input-group.mb-2 .btn {
+            height: 44px; /* adjust if you want larger/smaller */
+            line-height: 1;
+        }
+
+        /* Make the input look continuous with the button (no double border) */
+        .app-item-form-modal .input-group.mb-2 .form-control {
+            padding: 0 14px;
+            border-right: 0;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .app-item-form-modal .input-group.mb-2 .input-group-append {
+            height: 44px;
+        }
+
+        .app-item-form-modal .input-group.mb-2 .btn {
+            padding: 0 16px;
+            border-radius: 0 8px 8px 0;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Ensure the append wrapper doesn't collapse on older bootstrap */
+        .app-item-form-modal .input-group.mb-2 .input-group-append .btn {
+            height: 100%;
+        }
+
 </style>
 
 <form novalidate class="app-item-form-modal">
@@ -121,12 +193,12 @@
             Tên ứng dụng <span class="text-danger">*</span>
         </label>
         <input type="text"
-                     name="Name"
-                     value="@Model.Name"
-                     class="form-control"  
-                     placeholder="Nhập tên ứng dụng"
-                     maxlength="200"
-                     data-validation="required" />
+               name="Name"
+               value="@Model.Name"
+               class="form-control"  
+               placeholder="Nhập tên ứng dụng"
+               maxlength="200"
+               data-validation="required" />
     </div>
 
     <div class="form-group" style="animation: slideIn 0.4s ease;">
@@ -159,11 +231,11 @@
             URL
         </label>
         <input type="url"  
-                     name="Url"
-                     value="@Model.Url"  
-                     class="form-control"
-                     placeholder="https://example.com"
-                     maxlength="500" />
+               name="Url"
+               value="@Model.Url"  
+               class="form-control"
+               placeholder="https://example.com"
+               maxlength="500" />
     </div>
 
     <div class="form-group" style="animation: slideIn 0.6s ease;">
@@ -172,16 +244,29 @@
             Icon
         </label>
 
-        <div class="d-flex align-items-start mb-2 icon-upload-wrapper">
-            <div class="icon-preview-box">
-                <img id="iconPreview" src="@(string.IsNullOrEmpty(Model.Icon) ? Url.Content("~/images/icons/settings.png") : Model.Icon)" alt="Icon preview" class="icon-preview-img" />
-            </div>
-            <div style="flex:1">
-                <input type="hidden" name="Icon" id="Icon" value="@Model.Icon" />
-                <div class="mb-2">
-                    <input type="file" id="IconFile" accept="image/*" class="form-control-file icon-file-input" />
+        <div class="row align-items-start mb-2 icon-upload-wrapper" style="padding: 0 15px;">
+            <div class="col-auto" style="padding-bottom: 15px;">
+                <div class="icon-preview-box">
+                    <img id="iconPreview" src="@(string.IsNullOrEmpty(Model.Icon) ? Url.Content("~/images/icons/settings.png") : Model.Icon)" alt="Icon preview" class="icon-preview-img" />
                 </div>
-                <div id="iconUploadStatus">
+            </div>
+
+            <div class="col">
+                <input type="hidden" name="Icon" id="Icon" value="@Model.Icon" />
+
+                <div class="input-group mb-2">
+                    <input type="text" id="iconFileName" class="form-control" placeholder="Chưa có tệp được chọn" readonly />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" style="border: 1px solid #ddd;" type="button" onclick="document.getElementById('IconFile').click();">
+                            <i class="fa-solid fa-upload"></i>&nbsp;Chọn ảnh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- actual file input (kept for existing JS) -->
+                <input type="file" id="IconFile" accept="image/*" class="d-none" onchange="(function(e){ var f = e.target.files && e.target.files[0]; if(f){ var n = document.getElementById('iconFileName'); if(n) n.value = f.name; } })(event)" />
+
+                <div id="iconUploadStatus" class="mt-2" style="display:none;">
                     <i class="fa-solid fa-spinner fa-spin"></i> Đang tải lên...
                 </div>
 
@@ -197,12 +282,12 @@
             Thứ tự ưu tiên
         </label>
         <input type="number"  
-                     name="Prioritize"
-                     value="@Model.Prioritize"  
-                     class="form-control"
-                     placeholder="Nhập số thứ tự ưu tiên"
-                     min="1"
-                     step="1" />
+               name="Prioritize"
+               value="@Model.Prioritize"  
+               class="form-control"
+               placeholder="Nhập số thứ tự ưu tiên"
+               min="1"
+               step="1" />
     </div>
 
     <div class="form-group" style="animation: slideIn 0.9s ease;">

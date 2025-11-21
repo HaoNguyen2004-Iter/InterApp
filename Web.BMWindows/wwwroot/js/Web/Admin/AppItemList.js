@@ -112,7 +112,7 @@ $(document).ready(function () {
         checkAll: true,
         width: {},
         filterable: true,
-        height: { top: 250 },
+        height: { top: 137 },
         modal: { type: 1, width: '900px', title: 'Ứng dụng' },
         toolbars: {
             reload: { ele: panel + ' .main-toolbar .btn-reload' }
@@ -268,8 +268,8 @@ $(document).ready(function () {
                     }
                 }
             },
-            { type: 'datetime', attribute: 'CreatedDate'},
-            { type: 'datetime', attribute: 'UpdatedDate'}
+            { type: 'datetime', attribute: 'CreatedDate' },
+            { type: 'datetime', attribute: 'UpdatedDate' }
         ]
     });
 

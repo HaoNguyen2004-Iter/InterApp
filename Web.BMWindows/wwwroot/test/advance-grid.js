@@ -11,7 +11,7 @@
     }
 
     function n(t, n) {
-        if (t) {    
+        if (t) {
             var r = this.data("attr-old-value");
             if (n.attributeName.indexOf("style") >= 0) {
                 if (!r["style"]) r["style"] = {};
@@ -316,7 +316,7 @@
                                     }
                                     td += '> ' + v + '</span>';
                                 }
-                                
+
                                 if (cell.editInline != null) {
                                     if (cell.editInline == true) {
                                         td += '<div class="form-group inline-form">' +
@@ -2799,8 +2799,8 @@
             console.log(data);
             for (i = 0; i < set.rows.length; i++) {
                 var cell = set.rows[i];
-                if (cell.formula != null) { 
-                    v = cell.formula(data); 
+                if (cell.formula != null) {
+                    v = cell.formula(data);
                     var txt = v;
                     var td = tr.find('td[attr="' + cell.attribute + '"]');
                     console.log(txt, $.isNumeric(txt));
@@ -2847,7 +2847,7 @@
                 var data = s.getDataById(parseInt(id));
                 val = cell.beforeSaveInline(data, val);
             }
-           
+
             s.updateRowValue(tr, attr, val);
 
             if (text == null) {
@@ -3104,7 +3104,7 @@
                 fw = set.width.fix;
             }
 
-            if (fh == null) { 
+            if (fh == null) {
                 if (set.height.correlate != null) {
                     var co = set.height.correlate;
                     var th = co.height() - (set.toolbars != null ? 40 : 0);

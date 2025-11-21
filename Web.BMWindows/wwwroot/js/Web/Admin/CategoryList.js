@@ -8,36 +8,36 @@ $(document).ready(function () {
         editController: '/Category',
         width: {},
         filterable: true,
-        height: { top: 250 },
+        height: { top: 137 },
         modal: { type: 1, width: '800px', title: 'Nhóm ứng dụng' },
         toolbars: {
             reload: { ele: panel + ' .main-toolbar .btn-reload' }
         },
-        contextMenu: ['edit'], 
-        paging: {options: [10, 20, 30, 50]},
+        contextMenu: ['edit'],
+        paging: { options: [10, 20, 30, 50] },
         loadModalCallback: function (row) {
             var modalId = 'CategoryFormEditModal';
-            
+
             $('#' + modalId + ' .btn-submit').unbind('click').click(function () {
                 var btn = $(this);
                 btn.button('loading');
-                
+
                 var formData = $('#' + modalId + ' form').serialize();
-                
+
                 $.ajax({
                     url: '/Category/CategoryEdit',
                     type: 'POST',
                     data: formData,
-                 
+
                     success: function (result) {
                         btn.button('reset');
-                        
+
                         if (result.success) {
                             // Đóng modal
                             $('#' + modalId).modal('hide');
-                            
+
                             table.loadData();
-                            
+
                             if (typeof app !== 'undefined' && typeof app.notify === 'function') {
                                 app.notify('success', result.message);
                             }
@@ -51,7 +51,7 @@ $(document).ready(function () {
                             }
                         }
                     },
-                    
+
                     error: function () {
                         btn.button('reset');
                         if (typeof app !== 'undefined' && typeof app.notify === 'function') {
@@ -65,7 +65,7 @@ $(document).ready(function () {
         },
 
         params: { search: { hasCount: true, limit: 20 } },
-        head: { height: 60, groups: [50, 220, 50, 150, 130,130] },
+        head: { height: 60, groups: [50, 220, 50, 150, 130, 130] },
         skipCols: 0,
         cols: {
             left: [[]],
@@ -91,17 +91,17 @@ $(document).ready(function () {
                 }
             },
             { type: 'text', attribute: 'Prioritize', style: 'text-align: center;' },
-            { 
-                type: 'text', 
+            {
+                type: 'text',
                 attribute: 'Status',
-                style: 'text-align: center;', 
-                
+                style: 'text-align: center;',
+
                 render: function (row) {
-                   
+
                     var status = row.Status;
                     var html = '';
-                    
-                    switch(status) {
+
+                    switch (status) {
                         case 0:
                             html = '<span class="badge badge-warning">Dừng</span>';
                             break;
@@ -111,7 +111,7 @@ $(document).ready(function () {
                         default:
                             html = '<span class="badge badge-secondary">' + status + '</span>';
                     }
-                    
+
                     return html;
                 },
                 filter: {
@@ -124,11 +124,11 @@ $(document).ready(function () {
                     }
                 }
             },
-            { type: 'datetime', attribute: 'CreatedDate'},
-            { type: 'datetime', attribute: 'UpdatedDate'}
+            { type: 'datetime', attribute: 'CreatedDate' },
+            { type: 'datetime', attribute: 'UpdatedDate' }
         ]
     });
-    
+
     $(panel + ' .main-toolbar .btn-add').off('click').on('click', function () {
         editCategory(0, function () {
             table.loadData();
@@ -139,42 +139,42 @@ $(document).ready(function () {
 function editCategory(id, callback) {
     var modalTitle = id > 0 ? 'Cập nhật nhóm ứng dụng' : 'Thêm mới nhóm ứng dụng';
     var mid = 'editCategoryModal';
-    
+
     app.createPartialModal({
-        url: '/Category/CategoryEdit', 
+        url: '/Category/CategoryEdit',
         data: {
-            id: id || 0 
+            id: id || 0
         },
         modal: {
             title: modalTitle,
             width: '800px',
             id: mid,
             model: 'Category',
-            icon: '<i class="fa-solid fa-folder-tree"></i>' 
+            icon: '<i class="fa-solid fa-folder-tree"></i>'
         }
     }, function () {
         // Modal đã được load, bind sự kiện nút Submit
         $('#' + mid + ' .btn-submit').unbind('click').click(function () {
             var btn = $(this);
             btn.button('loading');
-            
+
             var formData = $('#' + mid + ' form').serialize();
-            
+
             $.ajax({
                 url: '/Category/CategoryEdit',  // POST
                 type: 'POST',
                 data: formData,
                 success: function (result) {
                     btn.button('reset');
-                    
+
                     if (result.success) {
                         $('#' + mid).modal('hide');
-                        
+
                         // Hiển thị thông báo thành công
                         if (typeof app !== 'undefined' && typeof app.notify === 'function') {
                             app.notify('success', result.message);
                         }
-                        
+
                         // Gọi callback để reload table
                         if (callback) {
                             callback();
